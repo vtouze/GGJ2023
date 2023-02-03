@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 1776279863}
   - component: {fileID: 1776279862}
   - component: {fileID: 1776279864}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,14 +436,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb2D: {fileID: 1801226385}
   _velocity: {x: 2, y: 0}
-  _upVelocity: {x: 0, y: 1}
+  _upVelocity: {x: 0, y: 3}
   _isClimbable: 0
+  _characterState: 0
+  _characterSprite: {fileID: 923714940}
+  _amibeSprite: {fileID: 21300000, guid: 619160d712cab9047bce1de97b4d9188, type: 3}
+  _batraSprite: {fileID: 21300000, guid: 72f341204d257d240afbbc04063c42a6, type: 3}
+  _aviaSprite: {fileID: 21300000, guid: a4c1633db75fd7b4fbde3915078fdcfe, type: 3}
+  _chimeraSprite: {fileID: 21300000, guid: dee3c20c7ab600244b6ea94e0e0390d6, type: 3}
   _direction: {x: 0, y: 0}
   _distance: 1
-  groundCheck: {fileID: 0}
+  jumpingPower: 20
+  _hoverTime: 2
+  _notHoverTime: 2
+  groundCheck: {fileID: 923714937}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!4 &1801226383
 Transform:
   m_ObjectHideFlags: 0
@@ -452,7 +461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801226381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.77, y: -0.85, z: -3.603077}
+  m_LocalPosition: {x: -4.6075, y: -2.6225, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -473,7 +482,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.26}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -500,8 +509,8 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 5
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0.81
+  m_GravityScale: 8
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -520,7 +529,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.24, y: 0}
+  m_Offset: {x: 0.24, y: 0.26}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -546,7 +555,7 @@ GameObject:
   - component: {fileID: 1888524932}
   - component: {fileID: 1888524931}
   - component: {fileID: 1888524935}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square (2)
   m_TagString: Climbing
   m_Icon: {fileID: 0}
