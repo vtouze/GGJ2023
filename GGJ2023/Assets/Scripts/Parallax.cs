@@ -4,26 +4,44 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    private float _length = 0;
-    private float _startpos = 0;
+    private float _lengthX = 0;
+    private float _lengthY = 0;
+
+    private float _startposX = 0;
+    private float _startposY = 0;
+
     [SerializeField] private Camera _camera = null;
-    [SerializeField] private float _parralaxEffect = 0;
+    [SerializeField] private float _parralaxEffectHorizontal = 0;
+    [SerializeField] private float _parralaxEffectVertical = 0;
+
+
 
     private void Start()
     {
-        _startpos = transform.position.x;
-        _length = GetComponent<SpriteRenderer>().bounds.size.x;
+        _startposX = transform.position.x;
+        _startposY = transform.position.y;
+
+        _lengthX = GetComponent<SpriteRenderer>().bounds.size.x;
+        _lengthY = GetComponent<SpriteRenderer>().bounds.size.y; ;
+
     }
 
     void Update()
     {
-        float temp = (_camera.transform.position.x * (1 - _parralaxEffect));
+        float tempX = (_camera.transform.position.x * (1 - _parralaxEffectHorizontal));
+        float tempY = (_camera.transform.position.y * (1 - _parralaxEffectVertical));
 
-        float dist = (_camera.transform.position.x * _parralaxEffect);
 
-        transform.position = new Vector3(_startpos + dist, transform.position.y, transform.position.z);
+        float distX = (_camera.transform.position.x * _parralaxEffectHorizontal);
+        float distY = (_camera.transform.position.y * _parralaxEffectVertical);
 
-        if (temp > _startpos + _length) _startpos += _length;
-        else if (temp < _startpos - _length) _startpos -= _length;
+
+        transform.position = new Vector3(_startposX + distX, _startposY + distY, transform.position.z);
+
+        if (tempX > _startposX + _lengthX) _startposX += _lengthX;
+        else if (tempX < _startposX - _lengthX) _startposX -= _lengthX;
+
+      
+
     }
 }
