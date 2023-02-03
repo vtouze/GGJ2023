@@ -24,10 +24,12 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _hoverTime = 2f;
     [SerializeField] private float _notHoverTime = 2f;
     private bool isFacingRight = true;
+    private float _movementSpeed = 5f;
+    private float _jumpForce = 50f;
 
-    
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -42,96 +44,51 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             _characterState = Estate.Amibe;
+            _characterSprite.sprite = _amibeSprite;
         }
         if (Input.GetKey(KeyCode.Z))
         {
             _characterState = Estate.Batra;
+            _characterSprite.sprite = _batraSprite;
         }
         if (Input.GetKey(KeyCode.E))
         {
             _characterState = Estate.Avia;
+            _characterSprite.sprite = _aviaSprite;
         }
         if (Input.GetKey(KeyCode.R))
         {
             _characterState = Estate.Chimera;
+            _characterSprite.sprite = _chimeraSprite;
         }
 
         if (_characterState == Estate.Amibe)
         {
-            _characterSprite.sprite = _amibeSprite;
+            AmibeController();
             
         }
         if (_characterState == Estate.Batra)
         {
-            _characterSprite.sprite = _batraSprite;
+            BatraController();
 
         }
         if (_characterState == Estate.Avia)
         {
-            _characterSprite.sprite = _aviaSprite;
+            AviaController();
 
         }
         if (_characterState == Estate.Chimera)
         {
-            _characterSprite.sprite = _chimeraSprite;
+            ChimeraController();
+
         }
 
-        horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            MoveForward();
-        }
+      
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            MoveBackward();
-        }
-        Flip();
 
-        if (_characterState == Estate.Batra)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-            {
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x, jumpingPower);
-            }
-
-            if (Input.GetKeyUp(KeyCode.Space) && _rb2D.velocity.y > 0f)
-            {
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x, _rb2D.velocity.y * 0.5f);
-            }
-        }
-
-        if(_characterState == Estate.Avia)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-            {
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x, jumpingPower);
-            }
-
-            if (Input.GetKeyUp(KeyCode.Space) && _rb2D.velocity.y > 0f)
-            {
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x, _rb2D.velocity.y * 0.5f);
-            }
-            HoverOn();
-        }
-
-        if (_characterState == Estate.Chimera)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-            {
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x, jumpingPower);
-            }
-
-            if (Input.GetKeyUp(KeyCode.Space) && _rb2D.velocity.y > 0f)
-            {
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x, _rb2D.velocity.y * 0.5f);
-            }
-            HoverOn();
-            Strike();
-        }
     }
-
+    #region Sticking
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Climbing")
@@ -146,12 +103,113 @@ public class AmibeCharacter : MonoBehaviour
             _isClimbable = false;
         }
     }
+    #endregion
 
-    
+    private void AmibeController()
+    {
+        #region Movement
+        var movement = Input.GetAxis("Horizontal");
+        if (Input.GetKey(KeyCode.RightArrow) && _isClimbable == true || Input.GetKey(KeyCode.LeftArrow) && _isClimbable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
-    
+        }
+        else
+        {
+            transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        if (!Mathf.Approximately(0, movement))
+        {
+            transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
+        }
+        #endregion
+    }
+    private void BatraController()
+    {
+        #region Movement
+        var movement = Input.GetAxis("Horizontal");
+        if (Input.GetKey(KeyCode.RightArrow) && _isClimbable == true || Input.GetKey(KeyCode.LeftArrow) && _isClimbable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
+        }
+        else
+        {
+            transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        #endregion
 
+        #region Jump
+        if (Input.GetButtonDown("Jump") && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
+        {
+            _rb2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+        }
+        if (!Mathf.Approximately(0, movement))
+        {
+            transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
+        }
+        #endregion
+    }
+    private void AviaController()
+    {
+        #region Movement
+        var movement = Input.GetAxis("Horizontal");
+        if (Input.GetKey(KeyCode.RightArrow) && _isClimbable == true || Input.GetKey(KeyCode.LeftArrow) && _isClimbable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+
+        }
+        else
+        {
+            transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        #endregion
+
+        #region Jump
+        if (Input.GetButtonDown("Jump") && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
+        {
+            _rb2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+        }
+        if (!Mathf.Approximately(0, movement))
+        {
+            transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
+        }
+        #endregion
+
+        #region Hover
+
+        #endregion
+    }
+    private void ChimeraController()
+    {
+        #region Movement
+        var movement = Input.GetAxis("Horizontal");
+        if (Input.GetKey(KeyCode.RightArrow) && _isClimbable == true || Input.GetKey(KeyCode.LeftArrow) && _isClimbable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+
+        }
+        else
+        {
+            transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        #endregion
+
+        #region Jump
+        if (Input.GetButtonDown("Jump") && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
+        {
+            _rb2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+        }
+        if (!Mathf.Approximately(0, movement))
+        {
+            transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
+        }
+        #endregion
+
+        #region Strike
+
+        #endregion
+    }
 
     private void MoveForward()
     {
@@ -162,12 +220,12 @@ public class AmibeCharacter : MonoBehaviour
         }
         else
         {
-            _rb2D.velocity = new Vector2 (_rb2D.velocity.y, _velocity.y);
+            _rb2D.velocity += new Vector2 (_rb2D.velocity.y, _velocity.y);
         }
 
 
     }
-
+    
     private void MoveBackward()
     {
         if (_isClimbable == true)
@@ -205,13 +263,7 @@ public class AmibeCharacter : MonoBehaviour
 
     private void Flip()
     {
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
+        
     }
     
 
