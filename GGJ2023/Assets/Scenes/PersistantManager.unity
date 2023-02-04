@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 1035566195}
   _audioManager: {fileID: 744845360}
-  _sceneToLoadAtStart: LevelDesignScene
+  _sceneToLoadAtStart: PatrickLDScene
 --- !u!1 &1346490958
 GameObject:
   m_ObjectHideFlags: 0

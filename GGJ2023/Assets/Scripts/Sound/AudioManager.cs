@@ -356,7 +356,7 @@ public class AudioManager : Singleton<AudioManager>
         source.PlayOneShot(clipToPlay);
     }
 
-    private void StartSound(string key)
+    public void StartSound(string key)
     {
         try
         {
@@ -397,7 +397,7 @@ public class AudioManager : Singleton<AudioManager>
     #endregion Common Sounds
 
 
-    #region Repetitive Sounds
+    #region Sounds
 
     public void StartRepetitiveSound(string key)
     {
@@ -446,7 +446,7 @@ public class AudioManager : Singleton<AudioManager>
 
     }
 
-    #endregion Repetitive Sounds
+    #endregion Sounds
 
     #region OneShot Sounds
 

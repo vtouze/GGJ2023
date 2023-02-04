@@ -201,16 +201,18 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
-
+            Debug.Log("TestMur");
         }
         else
         {
+            
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
         }
         if (!Mathf.Approximately(0, movement))
         {
             transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
         }
+
         #endregion
     }
     private void AmibeStatusUpdate()
@@ -220,7 +222,6 @@ public class AmibeCharacter : MonoBehaviour
         _rb2D.mass = _amibeMass;
         _rb2D.drag = _amibeLinearDrag;
         _amibeCollider2D.enabled = true;
-
     }
 
     private void BatraController()

@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _key: S_Ambiant
   _clip: {fileID: 8300000, guid: eb3c7a1898f13524a94e2c28df300a15, type: 3}
-  _volume: 1
+  _volume: 0.732
   _pitch: 1
   _loop: 1
+  _pitchVariation: 0
+  _pitchVariationMin: 1
+  _pitchVariationMax: 1
