@@ -7,7 +7,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb2D = null;
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private Vector2 _upVelocity;
-    [SerializeField] private bool _isClimbable = false;
+    [SerializeField] private bool _isStickable = false;
     [SerializeField] private Estate _characterState = Estate.Amibe;
     [SerializeField] private SpriteRenderer _characterSprite = null;
     [SerializeField] private Vector2 _direction;
@@ -17,6 +17,9 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _notHoverTime = 2f;
     private float _movementSpeed = 5f;
     private float _jumpForce = 50f;
+    private int _scoreDNA = 0;
+    private int _requireDNA = 2;
+    [SerializeField] private GameObject _objInRange;
     [SerializeField] private BoxCollider2D _sticking2DColliderBox = null;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -58,10 +61,13 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private Vector2 _chimeraStickyBoxOffset = Vector2.zero;
     #endregion
 
+    public int ScoreDNA => _scoreDNA;
+    public int RequireDNA => _requireDNA;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        AmibeStatusUpdate();
     }
 
 
@@ -74,16 +80,18 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Z))
         {
-            BatraStatusUpdate();
+            
         }
         if (Input.GetKey(KeyCode.E))
         {
-            AviaStatusUpdate();
+            
         }
         if (Input.GetKey(KeyCode.R))
         {
-            ChimeraStatusUpdate();
+            
         }
+
+
 
         if (_characterState == Estate.Amibe)
         {
@@ -111,19 +119,77 @@ public class AmibeCharacter : MonoBehaviour
 
 
     }
-    #region Sticking
+
+
+    private void CheckEvolution()
+    {
+
+        switch(_characterState)
+        {
+            case Estate.Amibe:
+                if (_scoreDNA == _requireDNA)
+                {
+                    BatraStatusUpdate();
+                    _scoreDNA = 0;
+                    _requireDNA = 3;
+                }
+                break;
+
+            case Estate.Batra:
+                if (_scoreDNA == _requireDNA)
+                {
+                    BatraStatusUpdate();
+                    _scoreDNA = 0;
+                    _requireDNA = 3;
+                }
+                break;
+
+            case Estate.Avia:
+                if (_scoreDNA == _requireDNA)
+                {
+                    ChimeraStatusUpdate();
+                    _scoreDNA = 0;
+                    _requireDNA = 5;
+                }
+                break;
+
+            case Estate.Chimera:
+                if (_scoreDNA == _requireDNA)
+                {
+                    Debug.Log("Chtulluuuuuuu !!!!!");
+                }
+                _scoreDNA = 0;
+                _requireDNA = 6;
+                break;
+
+             default:
+                Debug.LogError("CharacterState is non valid");
+                break;
+        }
+    }
+
+
+    #region Sticking and DNA Collect
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Climbing")
+        if (collision.gameObject.tag == "Stickable")
         {
-            _isClimbable = true;
+            _isStickable = true;
+            
+        }
+        if (collision.gameObject.CompareTag("DNA"))
+        {
+            _scoreDNA++;
+            Debug.Log(_scoreDNA);
+            Destroy(collision.gameObject);
+            CheckEvolution();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Climbing")
+        if (collision.gameObject.tag == "Stickable")
         {
-            _isClimbable = false;
+            _isStickable = false;
         }
     }
     #endregion
@@ -132,7 +198,7 @@ public class AmibeCharacter : MonoBehaviour
     {
         #region Movement
         var movement = Input.GetAxis("Horizontal");
-        if (Input.GetKey(KeyCode.RightArrow) && _isClimbable == true || Input.GetKey(KeyCode.LeftArrow) && _isClimbable == true)
+        if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
@@ -161,7 +227,7 @@ public class AmibeCharacter : MonoBehaviour
     {
         #region Movement
         var movement = Input.GetAxis("Horizontal");
-        if (Input.GetKey(KeyCode.RightArrow) && _isClimbable == true || Input.GetKey(KeyCode.LeftArrow) && _isClimbable == true)
+        if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
@@ -204,7 +270,7 @@ public class AmibeCharacter : MonoBehaviour
     {
         #region Movement
         var movement = Input.GetAxis("Horizontal");
-        if (Input.GetKey(KeyCode.RightArrow) && _isClimbable == true || Input.GetKey(KeyCode.LeftArrow) && _isClimbable == true)
+        if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
@@ -261,7 +327,7 @@ public class AmibeCharacter : MonoBehaviour
     {
         #region Movement
         var movement = Input.GetAxis("Horizontal");
-        if (Input.GetKey(KeyCode.RightArrow) && _isClimbable == true || Input.GetKey(KeyCode.LeftArrow) && _isClimbable == true)
+        if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
@@ -320,7 +386,7 @@ public class AmibeCharacter : MonoBehaviour
 
     private void MoveForward()
     {
-        if (_isClimbable == true)
+        if (_isStickable == true)
         {
             
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
@@ -335,7 +401,7 @@ public class AmibeCharacter : MonoBehaviour
     
     private void MoveBackward()
     {
-        if (_isClimbable == true)
+        if (_isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
         }
