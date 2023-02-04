@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: M_1
   m_EditorClassIdentifier: 
   _key: 
-  _clip: {fileID: 0}
+  _clip: {fileID: 8300000, guid: 31b6b85bdaa0c914db9976251b51ded8, type: 3}
   _volume: 1
   _pitch: 1
   _loop: 0
+  _pitchVariation: 0
+  _pitchVariationMin: 1
+  _pitchVariationMax: 1
