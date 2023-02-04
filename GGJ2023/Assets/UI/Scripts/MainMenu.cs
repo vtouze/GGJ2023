@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _title = null;
     [SerializeField] private GameObject _mainMenu = null;
     [SerializeField] private GameObject _settingsMenu = null;
-    [SerializeField] private Image _fadeImage = null;
+    [SerializeField] private GameObject _fadeImage = null;
     [SerializeField] private Animator _fadeAnimation = null;
 
     void Start()
@@ -17,18 +17,21 @@ public class MainMenu : MonoBehaviour
         _title.SetActive(true);
         _mainMenu.SetActive(true);
         _settingsMenu.SetActive(false);
+        _fadeImage.SetActive(false);
         //_fadeAnimation.SetBool("Fade", true);
     }
-    IEnumerator Fading()
+    /*IEnumerator Fading()
     {
         yield return new WaitUntil(()=>_fadeImage.color.a == 1);
         _fadeAnimation.SetBool("Fade", true);
     }
+    */
 
     public void Play()
     {
-        StartCoroutine(Fading());
-        SceneManager.LoadScene("SampleScene");
+        //StartCoroutine(Fading());
+        _fadeImage.SetActive(true);
+        SceneManager.LoadScene("PatrickLDScene");
     }
 
     public void Quit()
@@ -38,7 +41,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-        StartCoroutine(Fading());
+        //StartCoroutine(Fading());
         _title.SetActive(false);
         _mainMenu.SetActive(false);
         _settingsMenu.SetActive(true);
