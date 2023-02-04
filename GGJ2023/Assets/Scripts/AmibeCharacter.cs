@@ -10,26 +10,53 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private bool _isClimbable = false;
     [SerializeField] private Estate _characterState = Estate.Amibe;
     [SerializeField] private SpriteRenderer _characterSprite = null;
-    [SerializeField] private Sprite _amibeSprite = null;
-    [SerializeField] private Sprite _batraSprite = null;
-    [SerializeField] private Sprite _aviaSprite = null;
-    [SerializeField] private Sprite _chimeraSprite = null;
-
     [SerializeField] private Vector2 _direction;
     [SerializeField] private float _distance = 1.0f;
-    private bool _isGrounded = false;
-    private float horizontal;
-    private float speed = 8f;
     [SerializeField] private float jumpingPower = 16f;
     [SerializeField] private float _hoverTime = 2f;
     [SerializeField] private float _notHoverTime = 2f;
-    private bool isFacingRight = true;
     private float _movementSpeed = 5f;
     private float _jumpForce = 50f;
-
+    [SerializeField] private BoxCollider2D _sticking2DColliderBox = null;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+
+    #region Amibe
+    [SerializeField] private Sprite _amibeSprite = null;
+    [SerializeField] private float _amibeMass = 1f;
+    [SerializeField] private float _amibeLinearDrag = 1f;
+    [SerializeField] private PolygonCollider2D _amibeCollider2D = null;
     
+    #endregion
+
+    #region Batra
+    [SerializeField] private Sprite _batraSprite = null;
+    [SerializeField] private float _batraJumpForce = 1f;
+    [SerializeField] private float _batraMass = 1f;
+    [SerializeField] private float _batraLinearDrag = 1f;
+    [SerializeField] private PolygonCollider2D _batraCollider2D = null;
+    [SerializeField] private Vector2 _batraStickyBoxOffset = Vector2.zero;
+    #endregion
+
+    #region Avia
+    [SerializeField] private Sprite _aviaSprite = null;
+    [SerializeField] private float _aviaJumpForce = 1f;
+    [SerializeField] private float _aviaMass = 1f;
+    [SerializeField] private float _aviaLinearDrag = 1f;
+    [SerializeField] private float _aviaHoverLinearDrag = 1f;
+    [SerializeField] private PolygonCollider2D _aviaCollider2D = null;
+    [SerializeField] private Vector2 _aviaStickyBoxOffset = Vector2.zero;
+    #endregion
+
+    #region Chimera
+    [SerializeField] private Sprite _chimeraSprite = null;
+    [SerializeField] private float _chimeraJumpForce = 1f;
+    [SerializeField] private float _chimeraMass = 1f;
+    [SerializeField] private float _chimeraLinearDrag = 1f;
+    [SerializeField] private float _chimeraHoverLinearDrag = 1f;
+    [SerializeField] private PolygonCollider2D _chimeraCollider2D = null;
+    [SerializeField] private Vector2 _chimeraStickyBoxOffset = Vector2.zero;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -43,23 +70,19 @@ public class AmibeCharacter : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            _characterState = Estate.Amibe;
-            _characterSprite.sprite = _amibeSprite;
+            AmibeStatusUpdate();
         }
         if (Input.GetKey(KeyCode.Z))
         {
-            _characterState = Estate.Batra;
-            _characterSprite.sprite = _batraSprite;
+            BatraStatusUpdate();
         }
         if (Input.GetKey(KeyCode.E))
         {
-            _characterState = Estate.Avia;
-            _characterSprite.sprite = _aviaSprite;
+            AviaStatusUpdate();
         }
         if (Input.GetKey(KeyCode.R))
         {
-            _characterState = Estate.Chimera;
-            _characterSprite.sprite = _chimeraSprite;
+            ChimeraStatusUpdate();
         }
 
         if (_characterState == Estate.Amibe)
@@ -124,6 +147,16 @@ public class AmibeCharacter : MonoBehaviour
         }
         #endregion
     }
+    private void AmibeStatusUpdate()
+    {
+        _characterState = Estate.Amibe;
+        _characterSprite.sprite = _amibeSprite;
+        _rb2D.mass = _amibeMass;
+        _rb2D.drag = _amibeLinearDrag;
+        _amibeCollider2D.enabled = true;
+
+    }
+
     private void BatraController()
     {
         #region Movement
@@ -137,6 +170,10 @@ public class AmibeCharacter : MonoBehaviour
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
         }
+        if (!Mathf.Approximately(0, movement))
+        {
+            transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
+        }
         #endregion
 
         #region Jump
@@ -149,7 +186,20 @@ public class AmibeCharacter : MonoBehaviour
             transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
         }
         #endregion
+        
     }
+    private void BatraStatusUpdate()
+    {
+        _characterState = Estate.Batra;
+        _characterSprite.sprite = _batraSprite;
+        _jumpForce = _batraJumpForce;
+        _rb2D.mass = _batraMass;
+        _rb2D.drag = _batraLinearDrag;
+        _amibeCollider2D.enabled = false;
+        _batraCollider2D.enabled = true;
+        _sticking2DColliderBox.offset = _batraStickyBoxOffset;
+    }
+
     private void AviaController()
     {
         #region Movement
@@ -162,6 +212,10 @@ public class AmibeCharacter : MonoBehaviour
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        if (!Mathf.Approximately(0, movement))
+        {
+            transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
         }
         #endregion
 
@@ -177,9 +231,32 @@ public class AmibeCharacter : MonoBehaviour
         #endregion
 
         #region Hover
-
+        if(Input.GetButton("Jump") && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
+        {
+            AviaHoverStatusUpdate();
+        }
+        else
+        {
+            AviaStatusUpdate();
+        }
         #endregion
     }
+    private void AviaStatusUpdate()
+    {
+        _characterState = Estate.Avia;
+        _characterSprite.sprite = _aviaSprite;
+        _jumpForce = _aviaJumpForce;
+        _rb2D.mass = _aviaMass;
+        _rb2D.drag = _aviaLinearDrag;
+        _batraCollider2D.enabled = false;
+        _aviaCollider2D.enabled = true;
+        _sticking2DColliderBox.offset = _aviaStickyBoxOffset;
+    }
+    private void AviaHoverStatusUpdate()
+    {
+        _rb2D.drag = _aviaHoverLinearDrag;
+    }
+
     private void ChimeraController()
     {
         #region Movement
@@ -192,6 +269,10 @@ public class AmibeCharacter : MonoBehaviour
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        if (!Mathf.Approximately(0, movement))
+        {
+            transform.rotation = movement < 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
         }
         #endregion
 
@@ -206,9 +287,35 @@ public class AmibeCharacter : MonoBehaviour
         }
         #endregion
 
+        #region Hover
+        if (Input.GetButton("Jump") && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
+        {
+            ChimeraHoverStatusUpdate();
+        }
+        else
+        {
+            ChimeraStatusUpdate();
+        }
+        #endregion
+
         #region Strike
 
         #endregion
+    }
+    private void ChimeraStatusUpdate()
+    {
+        _characterState = Estate.Chimera;
+        _characterSprite.sprite = _chimeraSprite;
+        _jumpForce = _chimeraJumpForce;
+        _rb2D.mass = _chimeraMass;
+        _rb2D.drag = _chimeraLinearDrag;
+        _aviaCollider2D.enabled = false;
+        _chimeraCollider2D.enabled = true;
+        _sticking2DColliderBox.offset = _chimeraStickyBoxOffset;
+    }
+    private void ChimeraHoverStatusUpdate()
+    {
+        _rb2D.drag = _chimeraHoverLinearDrag;
     }
 
     private void MoveForward()
