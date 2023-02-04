@@ -29,7 +29,7 @@ public class VirgilePlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
-    public static Vector2 _lastCheckPointPos;
+    public static Vector2 _lastCheckPointPos = new Vector2(12,0);
     [SerializeField] private Transform _spawnPoint;
 
     [SerializeField] private GameObject _pauseMenu = null;

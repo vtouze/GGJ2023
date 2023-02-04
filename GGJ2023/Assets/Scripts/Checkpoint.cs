@@ -6,9 +6,9 @@ public class Checkpoint : MonoBehaviour
 {
     [SerializeField] private Transform _playerSpawn;
 
-    private void OnEnterTrigger2D(Collider2D player)
+    private void OnEnterTrigger2D(Collider2D collision)
     {
-        if (player.tag == "Player")
+        if (collision.transform.tag == "Player")
         {
             VirgilePlayerController._lastCheckPointPos = transform.position;
             Debug.Log("fdfdsfsd");
