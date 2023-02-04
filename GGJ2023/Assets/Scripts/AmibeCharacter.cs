@@ -10,15 +10,16 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private bool _isStickable = false;
     [SerializeField] private Estate _characterState = Estate.Amibe;
     [SerializeField] private SpriteRenderer _characterSprite = null;
+    [SerializeField] private Animator _characterAnim = null;
     [SerializeField] private Vector2 _direction;
-    [SerializeField] private float _distance = 1.0f;
-    [SerializeField] private float jumpingPower = 16f;
     [SerializeField] private float _hoverTime = 2f;
     [SerializeField] private float _notHoverTime = 2f;
+    
+    private bool _isGrounded = false;
     private float _movementSpeed = 5f;
-    private float _jumpForce = 50f;
-    private int _scoreDNA = 0;
-    private int _requireDNA = 2;
+    [SerializeField] private float _jumpForce = 50f;
+    [SerializeField] private int _scoreDNA = 0;
+    [SerializeField] private int _requireDNA = 2;
     [SerializeField] private GameObject _objInRange;
     [SerializeField] private BoxCollider2D _sticking2DColliderBox = null;
     [SerializeField] private Transform groundCheck;
@@ -26,6 +27,7 @@ public class AmibeCharacter : MonoBehaviour
 
     #region Amibe
     [SerializeField] private Sprite _amibeSprite = null;
+    [SerializeField] private Animator _amibeAnim = null;
     [SerializeField] private float _amibeMass = 1f;
     [SerializeField] private float _amibeLinearDrag = 1f;
     [SerializeField] private PolygonCollider2D _amibeCollider2D = null;
@@ -34,32 +36,35 @@ public class AmibeCharacter : MonoBehaviour
 
     #region Batra
     [SerializeField] private Sprite _batraSprite = null;
+    [SerializeField] private Animator _batraAnim = null;
     [SerializeField] private float _batraJumpForce = 1f;
     [SerializeField] private float _batraMass = 1f;
     [SerializeField] private float _batraLinearDrag = 1f;
-    [SerializeField] private PolygonCollider2D _batraCollider2D = null;
-    [SerializeField] private Vector2 _batraStickyBoxOffset = Vector2.zero;
     #endregion
 
     #region Avia
     [SerializeField] private Sprite _aviaSprite = null;
+    [SerializeField] private Animator _aviaAnim = null;
     [SerializeField] private float _aviaJumpForce = 1f;
     [SerializeField] private float _aviaMass = 1f;
     [SerializeField] private float _aviaLinearDrag = 1f;
     [SerializeField] private float _aviaHoverLinearDrag = 1f;
-    [SerializeField] private PolygonCollider2D _aviaCollider2D = null;
-    [SerializeField] private Vector2 _aviaStickyBoxOffset = Vector2.zero;
     #endregion
 
     #region Chimera
+    [Header("Chimera")]
     [SerializeField] private Sprite _chimeraSprite = null;
+    [SerializeField] private Animator _chimeraAnim = null;
     [SerializeField] private float _chimeraJumpForce = 1f;
     [SerializeField] private float _chimeraMass = 1f;
     [SerializeField] private float _chimeraLinearDrag = 1f;
     [SerializeField] private float _chimeraHoverLinearDrag = 1f;
     [SerializeField] private PolygonCollider2D _chimeraCollider2D = null;
-    [SerializeField] private Vector2 _chimeraStickyBoxOffset = Vector2.zero;
     #endregion
+    [SerializeField] private GameObject _amibeObject = null;
+    [SerializeField] private GameObject _batraObject = null;
+    [SerializeField] private GameObject _aviaObject = null;
+    [SerializeField] private GameObject _chimeraObject = null;
 
     public int ScoreDNA => _scoreDNA;
     public int RequireDNA => _requireDNA;
@@ -67,6 +72,7 @@ public class AmibeCharacter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _amibeObject.SetActive(true);
         AmibeStatusUpdate();
     }
 
@@ -76,19 +82,26 @@ public class AmibeCharacter : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
+            _amibeObject.SetActive(true);
             AmibeStatusUpdate();
         }
         if (Input.GetKey(KeyCode.Z))
         {
-            
+            _amibeObject.SetActive(false);
+            _batraObject.SetActive(true);
+            BatraStatusUpdate();
         }
         if (Input.GetKey(KeyCode.E))
         {
-            
+            _batraObject.SetActive(false);
+            _aviaObject.SetActive(true);
+            AviaStatusUpdate();
         }
         if (Input.GetKey(KeyCode.R))
         {
-            
+            _aviaObject.SetActive(false);
+            _chimeraObject.SetActive(true);
+            ChimeraStatusUpdate();
         }
 
 
@@ -98,17 +111,17 @@ public class AmibeCharacter : MonoBehaviour
             AmibeController();
             
         }
-        if (_characterState == Estate.Batra)
+        else if (_characterState == Estate.Batra)
         {
             BatraController();
 
         }
-        if (_characterState == Estate.Avia)
+        else if (_characterState == Estate.Avia)
         {
             AviaController();
 
         }
-        if (_characterState == Estate.Chimera)
+        else if (_characterState == Estate.Chimera)
         {
             ChimeraController();
 
@@ -129,27 +142,30 @@ public class AmibeCharacter : MonoBehaviour
             case Estate.Amibe:
                 if (_scoreDNA == _requireDNA)
                 {
-                    BatraStatusUpdate();
                     _scoreDNA = 0;
                     _requireDNA = 3;
+                    BatraStatusUpdate();
+                    
                 }
                 break;
 
             case Estate.Batra:
                 if (_scoreDNA == _requireDNA)
                 {
-                    BatraStatusUpdate();
                     _scoreDNA = 0;
-                    _requireDNA = 3;
+                    _requireDNA = 4;
+                    AviaStatusUpdate();
+                    
                 }
                 break;
 
             case Estate.Avia:
                 if (_scoreDNA == _requireDNA)
                 {
-                    ChimeraStatusUpdate();
                     _scoreDNA = 0;
                     _requireDNA = 5;
+                    ChimeraStatusUpdate();
+                    
                 }
                 break;
 
@@ -177,13 +193,11 @@ public class AmibeCharacter : MonoBehaviour
             _isStickable = true;
             
         }
-        if (collision.gameObject.CompareTag("DNA"))
+        else if (collision.gameObject.tag == "DNA")
         {
-            _scoreDNA++;
-            Debug.Log(_scoreDNA);
             Destroy(collision.gameObject);
-            CheckEvolution();
         }
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -191,13 +205,46 @@ public class AmibeCharacter : MonoBehaviour
         {
             _isStickable = false;
         }
+        else if (collision != null && collision.gameObject.tag == "DNA")
+        {
+            _scoreDNA++;
+            Debug.Log(_characterState + " " + _scoreDNA);
+            CheckEvolution();
+        }
     }
     #endregion
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            _isGrounded = true;
+        }
+        else
+        {
+            _isGrounded = false;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            _isGrounded = false;
+        }
+    }
 
     private void AmibeController()
     {
         #region Movement
         var movement = Input.GetAxis("Horizontal");
+        if(Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1)
+        {
+            _characterAnim.SetBool("isWalking", true);
+        }
+        else
+        {
+            _characterAnim.SetBool("isWalking", false);
+        }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
@@ -215,18 +262,22 @@ public class AmibeCharacter : MonoBehaviour
     }
     private void AmibeStatusUpdate()
     {
+        _amibeObject.SetActive(true);
         _characterState = Estate.Amibe;
-        _characterSprite.sprite = _amibeSprite;
-        _rb2D.mass = _amibeMass;
-        _rb2D.drag = _amibeLinearDrag;
-        _amibeCollider2D.enabled = true;
-
     }
 
     private void BatraController()
     {
         #region Movement
         var movement = Input.GetAxis("Horizontal");
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1)
+        {
+            _characterAnim.SetBool("isWalking", true);
+        }
+        else
+        {
+            _characterAnim.SetBool("isWalking", false);
+        }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
@@ -246,6 +297,11 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetButtonDown("Jump") && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
         {
             _rb2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+            _characterAnim.SetBool("isJumping", true);
+        }
+        else
+        {
+            _characterAnim.SetBool("isJumping", false);
         }
         if (!Mathf.Approximately(0, movement))
         {
@@ -256,14 +312,12 @@ public class AmibeCharacter : MonoBehaviour
     }
     private void BatraStatusUpdate()
     {
-        _characterState = Estate.Batra;
-        _characterSprite.sprite = _batraSprite;
-        _jumpForce = _batraJumpForce;
+        _amibeObject.SetActive(false);
+        _batraObject.SetActive(true);
         _rb2D.mass = _batraMass;
         _rb2D.drag = _batraLinearDrag;
-        _amibeCollider2D.enabled = false;
-        _batraCollider2D.enabled = true;
-        _sticking2DColliderBox.offset = _batraStickyBoxOffset;
+        _jumpForce = _batraJumpForce;
+        _characterState = Estate.Batra;
     }
 
     private void AviaController()
@@ -309,14 +363,12 @@ public class AmibeCharacter : MonoBehaviour
     }
     private void AviaStatusUpdate()
     {
-        _characterState = Estate.Avia;
-        _characterSprite.sprite = _aviaSprite;
-        _jumpForce = _aviaJumpForce;
+        _batraObject.SetActive(false);
+        _aviaObject.SetActive(true);
         _rb2D.mass = _aviaMass;
         _rb2D.drag = _aviaLinearDrag;
-        _batraCollider2D.enabled = false;
-        _aviaCollider2D.enabled = true;
-        _sticking2DColliderBox.offset = _aviaStickyBoxOffset;
+        _jumpForce = _aviaJumpForce;
+        _characterState = Estate.Avia;
     }
     private void AviaHoverStatusUpdate()
     {
@@ -370,14 +422,12 @@ public class AmibeCharacter : MonoBehaviour
     }
     private void ChimeraStatusUpdate()
     {
-        _characterState = Estate.Chimera;
-        _characterSprite.sprite = _chimeraSprite;
-        _jumpForce = _chimeraJumpForce;
+        _aviaObject.SetActive(false);
+        _chimeraObject.SetActive(true);
         _rb2D.mass = _chimeraMass;
         _rb2D.drag = _chimeraLinearDrag;
-        _aviaCollider2D.enabled = false;
-        _chimeraCollider2D.enabled = true;
-        _sticking2DColliderBox.offset = _chimeraStickyBoxOffset;
+        _jumpForce = _chimeraJumpForce;
+        _characterState = Estate.Chimera;
     }
     private void ChimeraHoverStatusUpdate()
     {
