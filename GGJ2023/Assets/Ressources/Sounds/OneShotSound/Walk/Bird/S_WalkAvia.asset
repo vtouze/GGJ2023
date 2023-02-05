@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87744370b371c984b82958ff44ebe188, type: 3}
   m_Name: S_WalkAvia
   m_EditorClassIdentifier: 
-  _key: S_Walk
+  _key: S_WalkAvia
   _clip: {fileID: 8300000, guid: 469cf72b63cdddb449ebadda327c0185, type: 3}
   _volume: 1
   _pitch: 1
