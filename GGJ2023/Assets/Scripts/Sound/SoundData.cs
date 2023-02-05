@@ -28,6 +28,12 @@ public class SoundData : ScriptableObject
     [Range(0f, 2f)]
     [SerializeField] private float _pitchVariationMax = 1;
 
+    [Space]
+    [Header("Multiple Sounds")]
+    [SerializeField] private bool multipleSoundRand = false;
+    [SerializeField] private SoundData[] otherSounds = null;
+    [SerializeField] private bool overwriteSoundDataAttribute = false;
+
 
     public string Key => _key;
 
@@ -41,5 +47,10 @@ public class SoundData : ScriptableObject
 
     public bool PitchVariation  => _pitchVariation;
     public float PitchVariationMin  => _pitchVariationMin;
-    public float PitchVariationMax => _pitchVariationMax; 
+    public float PitchVariationMax => _pitchVariationMax;
+
+    public bool MultipleSoundRand  => multipleSoundRand;
+    public SoundData[] OtherSounds => otherSounds;
+
+    public bool OverwriteSoundDataAttribute => overwriteSoundDataAttribute; 
 }
