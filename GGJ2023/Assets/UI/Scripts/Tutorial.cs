@@ -23,7 +23,7 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    public void OnTiggerExit2D(Collider2D collision)
+    public void OnTriggerExit2D(Collider2D collision)
     {
         /*if (collision.tag == "Player")
         {
