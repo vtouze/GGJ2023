@@ -8,6 +8,8 @@ public class GameOver : MonoBehaviour
 {
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _desktop;
+    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _gameOver;
 
     void Start()
     {
@@ -38,7 +40,8 @@ public class GameOver : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene("VirgileTest");
+        _gameOver.SetActive(false);
+        _player.transform.position = VirgilePlayerController._lastCheckPointPos;
     }
 
     /*public void ClearDisplay()
