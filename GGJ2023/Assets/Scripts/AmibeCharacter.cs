@@ -493,6 +493,10 @@ public class AmibeCharacter : MonoBehaviour
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
             _rb2D.gravityScale = 0;
         }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _rb2D.gravityScale = 1;
+        }
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
@@ -583,6 +587,10 @@ public class AmibeCharacter : MonoBehaviour
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
             _rb2D.gravityScale = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _rb2D.gravityScale = 1;
         }
         else
         {
