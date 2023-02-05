@@ -175,6 +175,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 273bd4de7866a694e8114b94eedce941, type: 2}
   - {fileID: 11400000, guid: 16a389b91899e2a47973c3754f44c089, type: 2}
   - {fileID: 11400000, guid: acdd73a163a50f44797e220ff89cde3c, type: 2}
+  - {fileID: 11400000, guid: 447fe981365f84c4aaf6dc7317d153fe, type: 2}
+  - {fileID: 11400000, guid: 64c65ccc4b064eb4494b5db637964118, type: 2}
   _mainSoundSource: {fileID: 1429136039}
   _musicSource: {fileID: 1642142540}
   _transitionSource: {fileID: 1890973878}
@@ -336,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 1035566195}
   _audioManager: {fileID: 744845360}
-  _sceneToLoadAtStart: LevelDesignScene
+  _sceneToLoadAtStart: MainMenu
 --- !u!1 &1429136038
 GameObject:
   m_ObjectHideFlags: 0

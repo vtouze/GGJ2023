@@ -55,11 +55,13 @@ public class SettingsMenu : MonoBehaviour
         _title.SetActive(true);
         _mainMenu.SetActive(true);
         _settingsMenu.SetActive(false);
+        AudioManager.Instance.StartSound("S_Button");
     }
 
     public void SetFullscreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
+        AudioManager.Instance.StartSound("S_Button");
     }
 
     public void SetBrightness(float value)
@@ -72,6 +74,8 @@ public class SettingsMenu : MonoBehaviour
         {
             _exposure.keyValue.value = .05f;
         }
+        AudioManager.Instance.StartSound("S_Button");
+
     }
 
     public void SetVsync()
@@ -95,6 +99,8 @@ public class SettingsMenu : MonoBehaviour
         }
         SetResolutionText();
         SetResolution();
+
+        AudioManager.Instance.StartSound("S_Button");
     }
 
     public void ResolutionSup()
@@ -106,6 +112,8 @@ public class SettingsMenu : MonoBehaviour
         }
         SetResolutionText();
         SetResolution();
+
+        AudioManager.Instance.StartSound("S_Button");
     }
 
     public void SetResolutionText()
