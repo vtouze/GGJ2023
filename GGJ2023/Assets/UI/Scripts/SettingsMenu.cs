@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 using TMPro;
+using UnityEngine.Audio;
 
 
 public class SettingsMenu : MonoBehaviour
@@ -23,6 +24,10 @@ public class SettingsMenu : MonoBehaviour
     public List<ResolutionIndex> _resolutions = new List<ResolutionIndex>();
     public int _selectedResolutions;
     public TMP_Text _resolutionsText = null;
+
+    public AudioMixer _mixer;
+    public TMP_Text _masterText, _musicText, _sfxTest;
+    public Slider _masterSlider, _musicSlider, _sfxSlider;
     
 
     void Start()
@@ -111,6 +116,21 @@ public class SettingsMenu : MonoBehaviour
     public void SetResolution()
     {
         Screen.SetResolution(_resolutions[_selectedResolutions].horizontal, _resolutions[_selectedResolutions].vertical, _fullScreenToggle.isOn);
+    }
+
+    public void SetMasterVolume()
+    {
+        _mixer.SetFloat("MasterVol", _masterSlider.value);
+    }
+
+    public void SetMusicVolume()
+    {
+        _mixer.SetFloat("MusicVol", _musicSlider.value);
+    }
+
+    public void SetSFXVolume()
+    {
+        _mixer.SetFloat("SFXVol", _sfxSlider.value);
     }
 }
 

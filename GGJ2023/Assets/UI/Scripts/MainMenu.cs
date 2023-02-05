@@ -31,7 +31,7 @@ public class MainMenu : MonoBehaviour
     {
         //StartCoroutine(Fading());
         _fadeImage.SetActive(true);
-        SceneManager.LoadScene("PatrickLDScene");
+        SceneManager.LoadScene("LevelDesignScene");
     }
 
     public void Quit()
