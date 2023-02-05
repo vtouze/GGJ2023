@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AmibeCharacter : MonoBehaviour
 {
+
+    #region Fields
+
     [SerializeField] private Rigidbody2D _rb2D = null;
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private Vector2 _upVelocity;
@@ -76,8 +79,22 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private GameObject _aviaObject = null;
     [SerializeField] private GameObject _chimeraObject = null;
 
+    #region Sounds
+    [Header("Character Sound")]
+    [SerializeField] private float _amibeMovementSoundDelay = 0.5f;
+    [SerializeField] private float _batraMovementSoundDelay = 0.5f;
+    private float _movementSoundTimeStamp = 0.5f;
+
+    #endregion Sounds
+
+    #endregion Fields
+
+    #region Properties
     public int ScoreDNA => _scoreDNA;
     public int RequireDNA => _requireDNA;
+    #endregion Properties
+
+    #region Methods
 
     // Start is called before the first frame update
     void Start()
@@ -285,9 +302,23 @@ public class AmibeCharacter : MonoBehaviour
         if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1 && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
         {
             _characterAnim.SetBool("isWalking", true);
+
+            #region Batra Walk Sounds
+            if (_movementSoundTimeStamp >= _batraMovementSoundDelay) 
+            {
+                AudioManager.Instance.StartSound("S_Walk");
+                _movementSoundTimeStamp = 0;
+            }
+            else
+            {
+                _movementSoundTimeStamp += Time.deltaTime;
+            }
+            #endregion Batra Walk Sounds
         }
         else
         {
+            _movementSoundTimeStamp = 0.5f; //For the Sounds
+
             _characterAnim.SetBool("isWalking", false);
         }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
@@ -468,5 +499,6 @@ public class AmibeCharacter : MonoBehaviour
     {
         _rb2D.drag = _chimeraHoverLinearDrag;
     }
+    #endregion Methods
 
 }
