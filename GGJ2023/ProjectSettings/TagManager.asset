@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DNA
   - Stickable
+  - StickableCelling
   layers:
   - Default
   - TransparentFX

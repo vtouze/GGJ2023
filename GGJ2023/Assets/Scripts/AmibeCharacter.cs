@@ -11,6 +11,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private Vector2 _upVelocity;
     [SerializeField] private bool _isStickable = false;
+    [SerializeField] private bool _isCellingStickable = false;
     [SerializeField] private Estate _characterState = Estate.Amibe;
     [SerializeField] private SpriteRenderer _characterSprite = null;
     [SerializeField] private Animator _characterAnim = null;
@@ -81,8 +82,8 @@ public class AmibeCharacter : MonoBehaviour
 
     #region Sounds
     [Header("Character Sound")]
-    [SerializeField] private float _amibeMovementSoundDelay = 0.5f;
-    [SerializeField] private float _batraMovementSoundDelay = 0.5f;
+    [SerializeField] private float _amibeMovementSoundDelay = 0.3f;
+    [SerializeField] private float _batraMovementSoundDelay = 0.3f;
     private float _movementSoundTimeStamp = 0.5f;
 
     #endregion Sounds
@@ -107,6 +108,7 @@ public class AmibeCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // debug button
         if (Input.GetKey(KeyCode.A))
         {
             _amibeObject.SetActive(true);
@@ -220,6 +222,10 @@ public class AmibeCharacter : MonoBehaviour
             _isStickable = true;
             
         }
+        else if (collision.gameObject.tag == "StickableCelling")
+        {
+            _isCellingStickable = true;
+        }
         else if (collision.gameObject.tag == "DNA")
         {
             Destroy(collision.gameObject);
@@ -231,6 +237,11 @@ public class AmibeCharacter : MonoBehaviour
         if (collision.gameObject.tag == "Stickable")
         {
             _isStickable = false;
+        }
+        else if (collision.gameObject.tag == "StickableCelling")
+        {
+            _isCellingStickable = false;
+            _rb2D.gravityScale = 1;
         }
         else if (collision != null && collision.gameObject.tag == "DNA")
         {
@@ -267,15 +278,31 @@ public class AmibeCharacter : MonoBehaviour
         if(Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1)
         {
             _characterAnim.SetBool("isWalking", true);
+            #region Amibe Move Sounds
+            if (_movementSoundTimeStamp >= _amibeMovementSoundDelay)
+            {
+                AudioManager.Instance.StartSound("S_SlugMovement");
+                _movementSoundTimeStamp = 0;
+            }
+            else
+            {
+                _movementSoundTimeStamp += Time.deltaTime;
+            }
+            #endregion Amibe Move Sounds
         }
         else
         {
             _characterAnim.SetBool("isWalking", false);
+            _movementSoundTimeStamp = _amibeMovementSoundDelay;
         }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
+        }
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
+        {
+            _rb2D.gravityScale = 0;
         }
         else
         {
@@ -317,14 +344,22 @@ public class AmibeCharacter : MonoBehaviour
         }
         else
         {
-            _movementSoundTimeStamp = 0.5f; //For the Sounds
-
+            _movementSoundTimeStamp = _batraMovementSoundDelay; //For the Sounds
             _characterAnim.SetBool("isWalking", false);
         }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
+        }
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
+        {
+            _rb2D.gravityScale = 0;
+        }
+        if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            
         }
         else
         {
