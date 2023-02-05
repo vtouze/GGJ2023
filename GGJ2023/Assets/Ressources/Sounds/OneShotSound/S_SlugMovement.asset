@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: S_SlugMovement
   m_EditorClassIdentifier: 
   _key: S_SlugMovement
-  _clip: {fileID: 8300000, guid: b5fed73f1651c37408e0663e913678a0, type: 3}
-  _volume: 1
+  _clip: {fileID: 8300000, guid: 9c3258d7e9364e84ea4a09f13415b00b, type: 3}
+  _volume: 0.788
   _pitch: 1
   _loop: 0
-  _pitchVariation: 0
+  _pitchVariation: 1
   _pitchVariationMin: 0.82
   _pitchVariationMax: 1.22
+  multipleSoundRand: 1
+  otherSounds:
+  - {fileID: 11400000, guid: 9a8873e7475468e43a2153f50254c6ad, type: 2}

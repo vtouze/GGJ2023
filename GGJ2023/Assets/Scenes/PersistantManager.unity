@@ -163,12 +163,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c0275459c00d2f4bb4391891dbffe1d, type: 2}
   - {fileID: 11400000, guid: 17fe023f693604547b8d266d9864b613, type: 2}
   - {fileID: 11400000, guid: 05414794b1e39aa4ca4b5a98a81580a6, type: 2}
+  - {fileID: 11400000, guid: 518cc8da1203b6840bdc48431b842ec2, type: 2}
+  - {fileID: 11400000, guid: 22e8c54738d48c546bfa32fb2cf1b0e5, type: 2}
+  - {fileID: 11400000, guid: 9a8873e7475468e43a2153f50254c6ad, type: 2}
   _mainSoundSource: {fileID: 1429136039}
   _musicSource: {fileID: 1642142540}
   _transitionSource: {fileID: 1890973878}
   _repetitiveSource: {fileID: 7820365783914371624, guid: 42ebadbf2e627854489f92a0adcff783, type: 3}
-  _soundsVolume: 1
-  _musicsVolume: 1
+  _soundsVolume: 0
+  _musicsVolume: 0
   _repetitiveSoundSourcePrefab: {fileID: 7820365783914371624, guid: 42ebadbf2e627854489f92a0adcff783, type: 3}
   _oneShotSoundSourcePrefab: {fileID: 7820365783914371624, guid: 20f83d7aaaf8a684b8af719caae246bf, type: 3}
   _fadeTick: 0.05

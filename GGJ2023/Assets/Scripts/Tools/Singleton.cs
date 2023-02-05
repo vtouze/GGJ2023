@@ -18,8 +18,7 @@
 
 					if (_instance == null)
 					{
-						Debug.LogError(" Trying to access a nulled instance of a singleton. Exiting without Errors.");
-						//throw new System.Exception(typeof(T) + " Trying to access a nulled instance of a singleton. Exiting.");
+						throw new System.Exception(typeof(T) + " Trying to access a nulled instance of a singleton. Exiting.");
 					}
 				}
 				return _instance;
