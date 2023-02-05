@@ -55,6 +55,8 @@ public class AudioManager : Singleton<AudioManager>
     //Can be used if main musics are used several time, to avoid confusion or error. If used new fonction for those main music has to be created
     // [Header("Music Names")]                                       
     // [SerializeField] private string _mainMenuTheme = null;
+
+    private int _musicNumber = 1;
     #endregion Fields
 
     #region Property
@@ -114,7 +116,7 @@ public class AudioManager : Singleton<AudioManager>
         _timerFadeOutTick.OnTick += FadeOutTick;
 
         StartSound("S_Ambiant");
-        
+        AutomaticMusic();
 
     }
     #endregion Start
@@ -148,6 +150,7 @@ public class AudioManager : Singleton<AudioManager>
             {
                 Debug.LogWarning("Fnct PlayMusic : The Soundata is not set as loop");
             }
+
             GlobalPlaySound(_musicSource, key);
         }
 
@@ -329,6 +332,61 @@ public class AudioManager : Singleton<AudioManager>
 
 
     }
+
+
+    private void AutomaticMusic()
+    {
+        if (_musicNumber == 5)
+        {
+            _musicNumber = 1;
+        }
+
+
+        switch(_musicNumber)
+        {
+            case 1:
+                PlayMusic("M_1");
+                break;
+            case 2:
+                PlayMusic("M_2");
+                break;
+            case 3:
+                PlayMusic("M_3");
+                break;
+            case 4:
+                PlayMusic("M_4");
+                break;
+            default:
+                Debug.LogError("Error On AutomaticMusic");
+                break;
+        }
+
+        _musicNumber++;
+
+        StartCoroutine(CoroutineMusicCheck());
+
+    }
+
+   
+
+    IEnumerator CoroutineMusicCheck()
+    {
+        yield return new WaitForSeconds(10f);
+        if (MusicCheck() == true) StartCoroutine(CoroutineCalmBetweenMusic());
+        else CoroutineMusicCheck();
+    }
+
+    private bool MusicCheck()
+    {
+        if (_musicSource.isPlaying) return true;
+        else return false;
+    }
+
+    IEnumerator CoroutineCalmBetweenMusic()
+    {
+        yield return new WaitForSeconds(80f);
+        AutomaticMusic();
+    }
     #endregion Music
 
 
@@ -336,6 +394,7 @@ public class AudioManager : Singleton<AudioManager>
 
     private void GlobalPlaySound(AudioSource source, string key)
     {
+        
         SoundData soundDataToPlay = _soundData[key];
 
         AudioClip clipToPlay = soundDataToPlay.Clip;
@@ -353,13 +412,16 @@ public class AudioManager : Singleton<AudioManager>
 
         source.loop = _soundData[key].Loop;
 
-        source.PlayOneShot(clipToPlay);
+        source.clip = clipToPlay;
+
+        source.Play();
+        //source.PlayOneShot(clipToPlay);
     }
 
     public void StartSound(string key)
     {
-        try
-        {
+       // try
+        //{
                 AudioSource sourceToPlay = Instantiate(_oneShotSoundSourcePrefab, transform);
 
                 SoundData soundDataToPlay = _soundData[key];
@@ -386,11 +448,11 @@ public class AudioManager : Singleton<AudioManager>
 
             //Play
             sourceToPlay.Play();
-        }
+       /* }
         catch
         {
             Debug.LogError("Error On PlaySound");
-        }
+        }*/
       
 
     }

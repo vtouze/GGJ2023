@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87744370b371c984b82958ff44ebe188, type: 3}
-  m_Name: S_Ambiant
+  m_Name: S_Jump
   m_EditorClassIdentifier: 
-  _key: S_Ambiant
-  _clip: {fileID: 8300000, guid: eb3c7a1898f13524a94e2c28df300a15, type: 3}
-  _volume: 0.585
+  _key: S_Jump
+  _clip: {fileID: 8300000, guid: 1a4b8bbcc9e72ae478b56581c7dbfe84, type: 3}
+  _volume: 1
   _pitch: 1
-  _loop: 1
+  _loop: 0
   _pitchVariation: 0
-  _pitchVariationMin: 1
-  _pitchVariationMax: 1
+  _pitchVariationMin: 0.82
+  _pitchVariationMax: 1.22

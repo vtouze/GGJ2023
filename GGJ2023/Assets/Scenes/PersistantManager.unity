@@ -155,6 +155,14 @@ MonoBehaviour:
   _soundDatas:
   - {fileID: 11400000, guid: 0447097e073fd1147a9618afa04fe62d, type: 2}
   - {fileID: 11400000, guid: 731019ab5a323724981882464855ee10, type: 2}
+  - {fileID: 11400000, guid: 7e35b9277de10044aa149f8ce7093c21, type: 2}
+  - {fileID: 11400000, guid: 8208e28ecf2acc949820b46323f904be, type: 2}
+  - {fileID: 11400000, guid: d655800da12b7434da5fb888521053ff, type: 2}
+  - {fileID: 11400000, guid: e1b38e33fe14fe6419ab82232585f7c4, type: 2}
+  - {fileID: 11400000, guid: 672345b4a152b41439063f4cc52c6628, type: 2}
+  - {fileID: 11400000, guid: 3c0275459c00d2f4bb4391891dbffe1d, type: 2}
+  - {fileID: 11400000, guid: 17fe023f693604547b8d266d9864b613, type: 2}
+  - {fileID: 11400000, guid: 05414794b1e39aa4ca4b5a98a81580a6, type: 2}
   _mainSoundSource: {fileID: 1429136039}
   _musicSource: {fileID: 1642142540}
   _transitionSource: {fileID: 1890973878}
@@ -316,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 1035566195}
   _audioManager: {fileID: 744845360}
-  _sceneToLoadAtStart: PatrickLDScene
+  _sceneToLoadAtStart: LevelDesignScene
 --- !u!1 &1346490958
 GameObject:
   m_ObjectHideFlags: 0
