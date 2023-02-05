@@ -9,7 +9,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            VirgilePlayerController._lastCheckPointPos = transform.position;
+            AmibeCharacter._lastCheckPointPos = transform.position;
         }
     }
 }

@@ -23,12 +23,23 @@ public class AmibeCharacter : MonoBehaviour
     private float _movementSpeed = 5f;
     [SerializeField] private float _jumpForce = 50f;
     [SerializeField] private int _scoreDNA = 0;
-    [SerializeField] private int _requireDNA = 2;
+    [SerializeField] private int _requireDNA = 1;
     [SerializeField] private GameObject _objInRange;
     [SerializeField] private BoxCollider2D _sticking2DColliderBox = null;
     [SerializeField] private PolygonCollider2D _characterPolyCollider2D = null;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+
+    #region pausemenu
+    public static Vector2 _lastCheckPointPos;
+    [SerializeField] private Transform _spawnPoint;
+    //[SerializeField] private GameObject _pauseMenu = null;
+    #endregion
+
+    #region Root
+    [SerializeField] private PolygonCollider2D _rootPolyCollider2D = null;
+    [SerializeField] private float _rootFOV = 2f;
+    #endregion
 
     #region Amibe
     [Header("Amibe")]
@@ -80,6 +91,8 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private PolygonCollider2D _chimeraPolyCollider2D = null;
     #endregion
 
+
+    [SerializeField] private GameObject _rootObject = null;
     [SerializeField] private GameObject _amibeObject = null;
     [SerializeField] private GameObject _batraObject = null;
     [SerializeField] private GameObject _aviaObject = null;
@@ -108,8 +121,10 @@ public class AmibeCharacter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _amibeObject.SetActive(true);
-        AmibeStatusUpdate();
+        _rootObject.SetActive(true);
+        RootStatusUpdate();
+        //_pauseMenu.SetActive(false);
+
     }
 
 
@@ -140,9 +155,17 @@ public class AmibeCharacter : MonoBehaviour
             _chimeraObject.SetActive(true);
             ChimeraStatusUpdate();
         }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            //_pauseMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
 
+        if (_characterState == Estate.Root)
+        {
+            RootController();
 
-
+        }
         if (_characterState == Estate.Amibe)
         {
             AmibeController();
@@ -176,6 +199,16 @@ public class AmibeCharacter : MonoBehaviour
 
         switch(_characterState)
         {
+            case Estate.Root:
+                if (_scoreDNA == _requireDNA)
+                {
+                    _scoreDNA = 0;
+                    _requireDNA = 2;
+                    AmibeStatusUpdate();
+                    AudioManager.Instance.StartSound("S_EvolutionBatra");
+                }
+                break;
+
             case Estate.Amibe:
                 if (_scoreDNA == _requireDNA)
                 {
@@ -259,7 +292,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         else if (collision != null && collision.gameObject.tag == "DNA")
         {
-            _scoreDNA++;
+            _scoreDNA += 1;
             Debug.Log(_characterState + " " + _scoreDNA);
             CheckEvolution();
         }
@@ -287,6 +320,19 @@ public class AmibeCharacter : MonoBehaviour
         {
             _isGrounded = false;
         }
+    }
+
+
+    private void RootController()
+    {
+
+    }
+    private void RootStatusUpdate()
+    {
+        _rootObject.SetActive(true);
+        _characterState = Estate.Root;
+        _mainCamera.orthographicSize = _rootFOV;
+        _characterPolyCollider2D = _rootPolyCollider2D;
     }
 
     private void AmibeController()
@@ -332,13 +378,15 @@ public class AmibeCharacter : MonoBehaviour
         }
         #endregion
     }
+
     private void AmibeStatusUpdate()
     {
+        _rootObject.SetActive(false);
         _amibeObject.SetActive(true);
-        _characterState = Estate.Amibe;
         _mainCamera.orthographicSize = _amibeFOV;
         _characterPolyCollider2D = _amibePolyCollider2D;
         _sticking2DColliderBox = _amibeStickyCollider2D;
+        _characterState = Estate.Amibe;
     }
 
     private void BatraController()
@@ -419,8 +467,8 @@ public class AmibeCharacter : MonoBehaviour
         _characterPolyCollider2D = _batraPolyCollider2D;
         _sticking2DColliderBox = _batraStickyCollider2D;
         _characterAnim = _batraAnim;
-        _characterState = Estate.Batra;
         _mainCamera.orthographicSize = _batraFOV;
+        _characterState = Estate.Batra;
     }
 
     private void AviaController()
@@ -506,8 +554,8 @@ public class AmibeCharacter : MonoBehaviour
         _characterPolyCollider2D = _aviaPolyCollider2D;
         _sticking2DColliderBox = _aviaStickyCollider2D;
         _characterAnim = _aviaAnim;
-        _characterState = Estate.Avia;
         _mainCamera.orthographicSize = _aviaFOV;
+        _characterState = Estate.Avia;
     }
     private void AviaHoverStatusUpdate()
     {
@@ -607,8 +655,8 @@ public class AmibeCharacter : MonoBehaviour
         _characterPolyCollider2D = _chimeraPolyCollider2D;
         _sticking2DColliderBox = _chimeraStickyCollider2D;
         _characterAnim = _chimeraAnim;
-        _characterState = Estate.Chimera;
         _mainCamera.orthographicSize = _chimeraFOV;
+        _characterState = Estate.Chimera;
     }
 
     private void ChimeraHoverStatusUpdate()
