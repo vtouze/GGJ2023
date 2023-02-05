@@ -115,7 +115,10 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _aviaMovementSoundDelay = 0.3f;
     [SerializeField] private float _chimeraMovementSoundDelay = 0.3f;
 
+    private bool _strikeSoundSecurity = false;
+
     private float _movementSoundTimeStamp = 0.5f;
+    private float _timeStampAttack = 0f;
 
     #endregion Sounds
 
@@ -211,7 +214,7 @@ public class AmibeCharacter : MonoBehaviour
             if (_timeStamp >= _delay)
             {
                 _cthulhuRenderer.sprite = _cthulhuFly;
-                float speed = _timeStamp / 2;
+                float speed = _timeStamp * 0.1f;
                 transform.position += new Vector3 (0, speed, 0);
                 Debug.Log("Chtulluuuuuuu !!!!!");
             }
@@ -231,7 +234,8 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 2;
                     AmibeStatusUpdate();
-                    AudioManager.Instance.StartSound("S_EvolutionBatra");
+                    AudioManager.Instance.StartSound("S_Evolution1");
+
                 }
                 break;
 
@@ -242,6 +246,7 @@ public class AmibeCharacter : MonoBehaviour
                     _requireDNA = 3;
                     BatraStatusUpdate();
                     AudioManager.Instance.StartSound("S_EvolutionBatra");
+
                 }
                 break;
 
@@ -251,7 +256,8 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 4;
                     AviaStatusUpdate();
-                    AudioManager.Instance.StartSound("S_EvolutionAvia");
+                    AudioManager.Instance.StartSound("S_EvolutionBatra");
+
 
                 }
                 break;
@@ -262,7 +268,8 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 5;
                     ChimeraStatusUpdate();
-                    AudioManager.Instance.StartSound("S_EvolutionChimera");
+                    AudioManager.Instance.StartSound("S_EvolutionAvia");
+
 
                 }
                 break;
@@ -278,6 +285,7 @@ public class AmibeCharacter : MonoBehaviour
                     _isCthulhu = true;
                     _timeStamp = 0;
                     transform.position = _posCthulhu.transform.position;
+                    AudioManager.Instance.StartSound("S_EvolutionChimera");
 
                 }
 
@@ -304,6 +312,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         else if (collision.gameObject.tag == "DNA")
         {
+            AudioManager.Instance.StartSound("S_ADN");
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.tag == "Destroyable")
@@ -711,7 +720,42 @@ public class AmibeCharacter : MonoBehaviour
         {
             _characterAnim.SetBool("isStriking", true);
             Destroy(_objInRange.gameObject);
-            if (_objInRange == null) { AudioManager.Instance.StartSound("S_Attack"); } else AudioManager.Instance.StartSound("S_Destruction");
+
+            if (_objInRange == null) 
+            { 
+                if(_strikeSoundSecurity == false)
+                {
+                    AudioManager.Instance.StartSound("S_Attack");
+                    _strikeSoundSecurity = true;
+
+                }
+                else
+                {
+                    if (_timeStampAttack >= 0.2f)
+                    {
+                        _strikeSoundSecurity = false;
+                    }
+                    _timeStampAttack += Time.deltaTime;
+                }
+
+            } 
+            else
+            {
+                if (_strikeSoundSecurity == false)
+                {
+                    AudioManager.Instance.StartSound("S_Destruction");
+                    _strikeSoundSecurity = true;
+
+                }
+                else
+                {
+                    if (_timeStampAttack >= 0.2f)
+                    {
+                        _strikeSoundSecurity = false;
+                    }
+                    _timeStampAttack += Time.deltaTime;
+                }
+            }
         }
         else
         {

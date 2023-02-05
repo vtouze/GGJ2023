@@ -14,6 +14,7 @@ public class Checkpoint : MonoBehaviour
             AmibeCharacter._lastCheckPointPos = transform.position;
             Debug.Log("fdfdfdf");
             _spriteRenderer.sprite = _spriteOpen;
+            AudioManager.Instance.StartSound("S_Checkpoint");
         }
     }
 }
