@@ -473,7 +473,7 @@ public class AmibeCharacter : MonoBehaviour
             _movementSoundTimeStamp = _batraMovementSoundDelay; //For the Sounds
             _characterAnim.SetBool("isWalking", false);
         }
-        if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
+        if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true && _isCellingStickable == false || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true && _isCellingStickable == false)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
