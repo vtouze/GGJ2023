@@ -84,6 +84,9 @@ public class AmibeCharacter : MonoBehaviour
     [Header("Character Sound")]
     [SerializeField] private float _amibeMovementSoundDelay = 0.3f;
     [SerializeField] private float _batraMovementSoundDelay = 0.3f;
+    [SerializeField] private float _aviaMovementSoundDelay = 0.3f;
+    [SerializeField] private float _chimeraMovementSoundDelay = 0.3f;
+
     private float _movementSoundTimeStamp = 0.5f;
 
     #endregion Sounds
@@ -174,7 +177,7 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 3;
                     BatraStatusUpdate();
-                    
+                    AudioManager.Instance.StartSound("S_EvolutionBatra");
                 }
                 break;
 
@@ -184,7 +187,8 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 4;
                     AviaStatusUpdate();
-                    
+                    AudioManager.Instance.StartSound("S_EvolutionAvia");
+
                 }
                 break;
 
@@ -194,7 +198,8 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 5;
                     ChimeraStatusUpdate();
-                    
+                    AudioManager.Instance.StartSound("S_EvolutionChimera");
+
                 }
                 break;
 
@@ -220,7 +225,7 @@ public class AmibeCharacter : MonoBehaviour
         if (collision.gameObject.tag == "Stickable")
         {
             _isStickable = true;
-            
+
         }
         else if (collision.gameObject.tag == "StickableCelling")
         {
@@ -229,6 +234,10 @@ public class AmibeCharacter : MonoBehaviour
         else if (collision.gameObject.tag == "DNA")
         {
             Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.tag == "Destroyable")
+        {
+            _objInRange = collision.gameObject;
         }
         
     }
@@ -248,6 +257,10 @@ public class AmibeCharacter : MonoBehaviour
             _scoreDNA++;
             Debug.Log(_characterState + " " + _scoreDNA);
             CheckEvolution();
+        }
+        else if (collision.gameObject.tag == "Destroyable")
+        {
+            _objInRange = null;
         }
     }
     #endregion
@@ -376,6 +389,8 @@ public class AmibeCharacter : MonoBehaviour
         {
             _rb2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
             _characterAnim.SetBool("isJumping", true);
+
+            AudioManager.Instance.StartSound("S_Jump");
         }
         else
         {
@@ -407,10 +422,26 @@ public class AmibeCharacter : MonoBehaviour
         var movement = Input.GetAxis("Horizontal");
         if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1 && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
         {
+  
+
             _characterAnim.SetBool("isWalking", true);
+
+            #region Avia Walk Sounds
+            if (_movementSoundTimeStamp >= _batraMovementSoundDelay)
+            {
+                AudioManager.Instance.StartSound("S_WalkAvia");
+                _movementSoundTimeStamp = 0;
+            }
+            else
+            {
+                _movementSoundTimeStamp += Time.deltaTime;
+            }
+            #endregion Avia Walk Sounds
         }
         else
         {
+            _movementSoundTimeStamp = _aviaMovementSoundDelay; //For the Sounds
+
             _characterAnim.SetBool("isWalking", false);
         }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
@@ -433,6 +464,9 @@ public class AmibeCharacter : MonoBehaviour
         {
             _rb2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
             _characterAnim.SetBool("isJumping", true);
+
+            AudioManager.Instance.StartSound("S_JumpAvia");
+
         }
         else
         {
@@ -445,7 +479,7 @@ public class AmibeCharacter : MonoBehaviour
         #endregion
 
         #region Hover
-        if (Input.GetButton("Jump") && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
+        if (Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
         {
             AviaHoverStatusUpdate();
         }
@@ -476,10 +510,31 @@ public class AmibeCharacter : MonoBehaviour
     {
         #region Movement
         var movement = Input.GetAxis("Horizontal");
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1 && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
+        {
+            _characterAnim.SetBool("isWalking", true);
+
+            #region Chimera Walk Sounds
+            if (_movementSoundTimeStamp >= _batraMovementSoundDelay)
+            {
+                AudioManager.Instance.StartSound("S_WalkChimera");
+                _movementSoundTimeStamp = 0;
+            }
+            else
+            {
+                _movementSoundTimeStamp += Time.deltaTime;
+            }
+            #endregion Chimera Walk Sounds
+        }
+        else
+        {
+            _movementSoundTimeStamp = _chimeraMovementSoundDelay; //For the Sounds
+
+            _characterAnim.SetBool("isWalking", false);
+        }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
-
         }
         else
         {
@@ -495,6 +550,14 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetButtonDown("Jump") && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
         {
             _rb2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+            _characterAnim.SetBool("isJumping", true);
+
+            AudioManager.Instance.StartSound("S_JumpChimera");
+
+        }
+        else
+        {
+            _characterAnim.SetBool("isJumping", false);
         }
         if (!Mathf.Approximately(0, movement))
         {
@@ -503,7 +566,7 @@ public class AmibeCharacter : MonoBehaviour
         #endregion
 
         #region Hover
-        if (Input.GetButton("Jump") && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
+        if (Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
         {
             ChimeraHoverStatusUpdate();
         }
@@ -514,7 +577,16 @@ public class AmibeCharacter : MonoBehaviour
         #endregion
 
         #region Strike
-
+        if (Input.GetKey(KeyCode.C))
+        {
+            _characterAnim.SetBool("isStriking", true);
+            Destroy(_objInRange.gameObject);
+            if (_objInRange == null) { AudioManager.Instance.StartSound("S_Attack"); } else AudioManager.Instance.StartSound("S_Destruction");
+        }
+        else
+        {
+            _characterAnim.SetBool("isStriking", false);
+        }
         #endregion
     }
     private void ChimeraStatusUpdate()

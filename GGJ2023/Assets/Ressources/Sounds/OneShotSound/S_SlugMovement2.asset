@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _key: S_SlugMovement2
   _clip: {fileID: 8300000, guid: 2d43950d99403cf4d8ab343b75e875b7, type: 3}
-  _volume: 0.769
+  _volume: 0.509
   _pitch: 1
   _loop: 0
   _pitchVariation: 1
@@ -22,3 +22,4 @@ MonoBehaviour:
   _pitchVariationMax: 1.22
   multipleSoundRand: 0
   otherSounds: []
+  overwriteSoundDataAttribute: 0

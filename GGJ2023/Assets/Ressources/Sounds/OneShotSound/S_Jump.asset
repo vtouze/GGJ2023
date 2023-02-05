@@ -17,6 +17,9 @@ MonoBehaviour:
   _volume: 1
   _pitch: 1
   _loop: 0
-  _pitchVariation: 0
-  _pitchVariationMin: 0.82
+  _pitchVariation: 1
+  _pitchVariationMin: 1
   _pitchVariationMax: 1.22
+  multipleSoundRand: 0
+  otherSounds: []
+  overwriteSoundDataAttribute: 0
