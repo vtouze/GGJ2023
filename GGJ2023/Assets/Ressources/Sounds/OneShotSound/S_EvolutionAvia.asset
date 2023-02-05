@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87744370b371c984b82958ff44ebe188, type: 3}
-  m_Name: S_Attack
+  m_Name: S_EvolutionAvia
   m_EditorClassIdentifier: 
-  _key: S_Attack
-  _clip: {fileID: 8300000, guid: bc806850ce286c542903de036a9dda3e, type: 3}
+  _key: S_EvolutionAvia
+  _clip: {fileID: 8300000, guid: e82937974f676b64286631a8c769e24e, type: 3}
   _volume: 1
-  _pitch: 1
+  _pitch: 0.9
   _loop: 0
   _pitchVariation: 0
   _pitchVariationMin: 0.82
