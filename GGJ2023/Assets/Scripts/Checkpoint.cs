@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    [SerializeField] private Transform _playerSpawn;
 
-    private void OnEnterTrigger2D(Collider2D collision)
+    public void OnEnterTrigger2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             VirgilePlayerController._lastCheckPointPos = transform.position;
             Debug.Log("fdfdsfsd");
         }
+        Debug.Log("1212121");
     }
 }
