@@ -53,5 +53,6 @@ public class MainMenu : MonoBehaviour
     public void Resume()
     {
         _menu.SetActive(false);
+        Time.timeScale = 1;
     }
 }

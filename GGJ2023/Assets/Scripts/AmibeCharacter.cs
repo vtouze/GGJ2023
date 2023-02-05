@@ -100,8 +100,8 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private Sprite _cthulhuFly = null;
     [SerializeField] private bool _isCthulhu = false;
     [SerializeField] private float _delay = 3f;
-    [SerializeField] private float _delay2 = 13f;
-    [SerializeField] private float _timeStamp = 5;
+    [SerializeField] private float _endDelay = 13f;
+    [SerializeField] private float _timeStamp = 0f;
     #endregion Cthulhu
 
     [SerializeField] private GameObject _rootObject = null;
@@ -179,6 +179,7 @@ public class AmibeCharacter : MonoBehaviour
             _chimeraObject.SetActive(true);
             ChimeraStatusUpdate();
         }
+
         if (Input.GetKey(KeyCode.Escape))
         {
             _pauseMenu.SetActive(true);
@@ -233,7 +234,7 @@ public class AmibeCharacter : MonoBehaviour
                 }
 
             }
-            if(_timeStamp >= _delay2)
+            if(_timeStamp >= _endDelay)
             {
                 SceneManager.LoadScene("Credits");
             }
@@ -295,8 +296,6 @@ public class AmibeCharacter : MonoBehaviour
             case Estate.Chimera:
                 if (_scoreDNA == _requireDNA)
                 {
-                    _scoreDNA = 0;
-                    _requireDNA = 6;
                     _chimeraObject.SetActive(false);
                     _cthulhuObject.SetActive(true);
                     _rb2D.simulated = false;
