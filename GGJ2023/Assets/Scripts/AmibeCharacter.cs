@@ -32,7 +32,7 @@ public class AmibeCharacter : MonoBehaviour
 
     #region pausemenu
     public static Vector2 _lastCheckPointPos;
-    [SerializeField] private Transform _spawnPoint;
+    
     //[SerializeField] private GameObject _pauseMenu = null;
     #endregion
 
@@ -117,6 +117,12 @@ public class AmibeCharacter : MonoBehaviour
     #endregion Properties
 
     #region Methods
+
+
+    /*void Awake()
+    {
+        transform.position = _lastCheckPointPos;
+    }*/
 
     // Start is called before the first frame update
     void Start()
@@ -421,12 +427,18 @@ public class AmibeCharacter : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
         {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
             _rb2D.gravityScale = 0;
         }
-        if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true)
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
-            
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true && _isStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
         }
         else
         {
