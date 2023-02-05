@@ -385,7 +385,7 @@ public class AudioManager : Singleton<AudioManager>
 
     IEnumerator CoroutineCalmBetweenMusic()
     {
-        yield return new WaitForSeconds(80f);
+        yield return new WaitForSeconds(40f);
         AutomaticMusic();
     }
     #endregion Music
