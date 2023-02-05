@@ -13,6 +13,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private GameObject _settingsMenu = null;
     [SerializeField] private Slider _brightnessSlider = null;
     [SerializeField] private Toggle _vSyncToggle = null;
+    [SerializeField] private Toggle _fullScreenToggle = null;
 
     public PostProcessProfile _brightness;
     public PostProcessLayer _layer;
@@ -107,7 +108,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetResolution()
     {
-        Screen.SetResolution(_resolutions[_selectedResolutions].horizontal, _resolutions[_selectedResolutions].vertical, Screen.fullScreen);
+        Screen.SetResolution(_resolutions[_selectedResolutions].horizontal, _resolutions[_selectedResolutions].vertical, _fullScreenToggle.isOn);
     }
 }
 

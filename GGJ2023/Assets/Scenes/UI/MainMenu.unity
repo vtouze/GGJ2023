@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &363304187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5682861251126810597, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+  m_PrefabInstance: {fileID: 5682861250993718826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5682861250993718826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,6 +141,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3525747811266571268, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525747811266571268, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525747812167856485, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525747812167856485, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 5682861249444298033, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -258,6 +285,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5682861250069123392, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: _fullScreenToggle
+      value: 
+      objectReference: {fileID: 363304187}
     - target: {fileID: 5682861250069123394, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -349,6 +380,14 @@ PrefabInstance:
     - target: {fileID: 5682861250578642444, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682861250584024324, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682861250584024324, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 5682861250616997852, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
       propertyPath: m_AnchorMax.y
@@ -501,6 +540,14 @@ PrefabInstance:
     - target: {fileID: 5682861251126810596, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682861251126810597, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5682861251126810597, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetFullscreen
       objectReference: {fileID: 0}
     - target: {fileID: 5682861251141872835, guid: 1da955c5461e11b4c8bcc28bc15c5578, type: 3}
       propertyPath: m_AnchorMax.x
