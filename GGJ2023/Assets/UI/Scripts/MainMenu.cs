@@ -32,6 +32,7 @@ public class MainMenu : MonoBehaviour
     {
         //StartCoroutine(Fading());
         _fadeImage.SetActive(true);
+        AudioManager.Instance.StartSound("S_Button");
         SceneManager.LoadScene("LevelDesignScene");
     }
 
@@ -42,6 +43,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenSettings()
     {
+        AudioManager.Instance.StartSound("S_Button");
         //StartCoroutine(Fading());
         _title.SetActive(false);
         _mainMenu.SetActive(false);

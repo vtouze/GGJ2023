@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: S_ADN
   m_EditorClassIdentifier: 
   _key: S_ADN
-  _clip: {fileID: 8300000, guid: 5469ff2f7d89c8748ad94491d9b23858, type: 3}
+  _clip: {fileID: 8300000, guid: 76a8f0e1663e5f049b35d62ccd93ea88, type: 3}
   _volume: 1
   _pitch: 1
   _loop: 0
   _pitchVariation: 0
-  _pitchVariationMin: 0.82
+  _pitchVariationMin: 1
   _pitchVariationMax: 1.22
   multipleSoundRand: 0
   otherSounds: []

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class AmibeCharacter : MonoBehaviour
@@ -95,10 +96,11 @@ public class AmibeCharacter : MonoBehaviour
     #region Cthulhu
     [SerializeField] private GameObject _cthulhuObject = null;
     [SerializeField] private SpriteRenderer _cthulhuRenderer = null;
-    [SerializeField] private Transform _posCthulhu;
+    [SerializeField] private GameObject _posCthulhu;
     [SerializeField] private Sprite _cthulhuFly = null;
     [SerializeField] private bool _isCthulhu = false;
-    [SerializeField] private float _delay = 0f;
+    [SerializeField] private float _delay = 3f;
+    [SerializeField] private float _delay2 = 13f;
     [SerializeField] private float _timeStamp = 5;
     #endregion Cthulhu
 
@@ -115,7 +117,11 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _aviaMovementSoundDelay = 0.3f;
     [SerializeField] private float _chimeraMovementSoundDelay = 0.3f;
 
+    private bool _strikeSoundSecurity = false;
+
     private float _movementSoundTimeStamp = 0.5f;
+    private float _timeStampAttack = 0f;
+    private bool _musicEndSecurity = false;
 
     #endregion Sounds
 
@@ -176,7 +182,7 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.Escape))
         {
             _pauseMenu.SetActive(true);
-            Time.timeScale = 1;
+            Time.timeScale = 0;
         }
 
         if (_characterState == Estate.Root)
@@ -205,16 +211,32 @@ public class AmibeCharacter : MonoBehaviour
 
         }
 
-        if(_isCthulhu == true)
+   
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isCthulhu == true)
         {
             _timeStamp += Time.deltaTime;
+            if (_timeStamp >= _delay)
+            {
+                _cthulhuRenderer.sprite = _cthulhuFly;
+                float speed = (_timeStamp * 0.05f);
+                transform.position += new Vector3(0, speed, 0);
+                Debug.Log("Chtulluuuuuuu !!!!!");
+                if(_musicEndSecurity == false)
+                {
+                    AudioManager.Instance.PlayMusic("M_5");
+                    _musicEndSecurity = true;
+                }
 
-        }
-        if (_timeStamp >= _delay)
-        {
-            _cthulhuRenderer.sprite = _cthulhuFly;
-            //transform.position += new Vector3(_timeStamp, _cha.y, _posCthulhu.z);
-            Debug.Log("Chtulluuuuuuu !!!!!");
+            }
+            if(_timeStamp >= _delay2)
+            {
+                SceneManager.LoadScene("Credits");
+            }
         }
     }
 
@@ -230,7 +252,8 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 2;
                     AmibeStatusUpdate();
-                    AudioManager.Instance.StartSound("S_EvolutionBatra");
+                    AudioManager.Instance.StartSound("S_Evolution1");
+
                 }
                 break;
 
@@ -241,6 +264,7 @@ public class AmibeCharacter : MonoBehaviour
                     _requireDNA = 3;
                     BatraStatusUpdate();
                     AudioManager.Instance.StartSound("S_EvolutionBatra");
+
                 }
                 break;
 
@@ -250,7 +274,8 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 4;
                     AviaStatusUpdate();
-                    AudioManager.Instance.StartSound("S_EvolutionAvia");
+                    AudioManager.Instance.StartSound("S_EvolutionBatra");
+
 
                 }
                 break;
@@ -261,7 +286,8 @@ public class AmibeCharacter : MonoBehaviour
                     _scoreDNA = 0;
                     _requireDNA = 5;
                     ChimeraStatusUpdate();
-                    AudioManager.Instance.StartSound("S_EvolutionChimera");
+                    AudioManager.Instance.StartSound("S_EvolutionAvia");
+
 
                 }
                 break;
@@ -269,15 +295,18 @@ public class AmibeCharacter : MonoBehaviour
             case Estate.Chimera:
                 if (_scoreDNA == _requireDNA)
                 {
+                    _scoreDNA = 0;
+                    _requireDNA = 6;
                     _chimeraObject.SetActive(false);
                     _cthulhuObject.SetActive(true);
+                    _rb2D.simulated = false;
                     _isCthulhu = true;
                     _timeStamp = 0;
-                    transform.position = _posCthulhu.position;
+                    transform.position = _posCthulhu.transform.position;
+                    AudioManager.Instance.StartSound("S_EvolutionChimera");
 
                 }
-                _scoreDNA = 0;
-                _requireDNA = 6;
+
                 break;
 
              default:
@@ -301,6 +330,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         else if (collision.gameObject.tag == "DNA")
         {
+            AudioManager.Instance.StartSound("S_ADN");
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.tag == "Destroyable")
@@ -540,6 +570,21 @@ public class AmibeCharacter : MonoBehaviour
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
         }
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true && _isStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
@@ -627,6 +672,26 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+
+        }
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true && _isStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _rb2D.gravityScale = 1;
         }
         else
         {
@@ -673,7 +738,42 @@ public class AmibeCharacter : MonoBehaviour
         {
             _characterAnim.SetBool("isStriking", true);
             Destroy(_objInRange.gameObject);
-            if (_objInRange == null) { AudioManager.Instance.StartSound("S_Attack"); } else AudioManager.Instance.StartSound("S_Destruction");
+
+            if (_objInRange == null) 
+            { 
+                if(_strikeSoundSecurity == false)
+                {
+                    AudioManager.Instance.StartSound("S_Attack");
+                    _strikeSoundSecurity = true;
+                    _timeStampAttack = 0f;
+                }
+                else
+                {
+                    if (_timeStampAttack >= 0.1f)
+                    {
+                        _strikeSoundSecurity = false;
+                    }
+                    _timeStampAttack += Time.deltaTime;
+                }
+
+            } 
+            else
+            {
+                if (_strikeSoundSecurity == false)
+                {
+                    AudioManager.Instance.StartSound("S_Destruction");
+                    _strikeSoundSecurity = true;
+                    _timeStampAttack = 0f;
+                }
+                else
+                {
+                    if (_timeStampAttack >= 0.1f)
+                    {
+                        _strikeSoundSecurity = false;
+                    }
+                    _timeStampAttack += Time.deltaTime;
+                }
+            }
         }
         else
         {

@@ -175,6 +175,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 273bd4de7866a694e8114b94eedce941, type: 2}
   - {fileID: 11400000, guid: 16a389b91899e2a47973c3754f44c089, type: 2}
   - {fileID: 11400000, guid: acdd73a163a50f44797e220ff89cde3c, type: 2}
+  - {fileID: 11400000, guid: 447fe981365f84c4aaf6dc7317d153fe, type: 2}
+  - {fileID: 11400000, guid: 64c65ccc4b064eb4494b5db637964118, type: 2}
+  - {fileID: 11400000, guid: c5c89c3e457c050419c8e25290b191d5, type: 2}
   _mainSoundSource: {fileID: 1429136039}
   _musicSource: {fileID: 1642142540}
   _transitionSource: {fileID: 1890973878}
@@ -336,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 1035566195}
   _audioManager: {fileID: 744845360}
-  _sceneToLoadAtStart: LevelDesignScene
+  _sceneToLoadAtStart: MainMenu
 --- !u!1 &1429136038
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +494,7 @@ AudioSource:
   m_GameObject: {fileID: 1642142539}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 3771678087412200491, guid: d78b477f23db13740a2f43236657aeef, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
