@@ -167,8 +167,8 @@ MonoBehaviour:
   _musicSource: {fileID: 1642142540}
   _transitionSource: {fileID: 1890973878}
   _repetitiveSource: {fileID: 7820365783914371624, guid: 42ebadbf2e627854489f92a0adcff783, type: 3}
-  _soundsVolume: 1
-  _musicsVolume: 1
+  _soundsVolume: 0
+  _musicsVolume: 0
   _repetitiveSoundSourcePrefab: {fileID: 7820365783914371624, guid: 42ebadbf2e627854489f92a0adcff783, type: 3}
   _oneShotSoundSourcePrefab: {fileID: 7820365783914371624, guid: 20f83d7aaaf8a684b8af719caae246bf, type: 3}
   _fadeTick: 0.05
