@@ -171,8 +171,6 @@ public class VirgilePlayerController : MonoBehaviour
         {
             _rb2D.velocity = new Vector2 (_rb2D.velocity.y, _velocity.y);
         }
-
-
     }
 
     private void MoveBackward()
