@@ -95,7 +95,7 @@ public class AmibeCharacter : MonoBehaviour
     #region Cthulhu
     [SerializeField] private GameObject _cthulhuObject = null;
     [SerializeField] private SpriteRenderer _cthulhuRenderer = null;
-    [SerializeField] private Transform _posCthulhu;
+    [SerializeField] private GameObject _posCthulhu;
     [SerializeField] private Sprite _cthulhuFly = null;
     [SerializeField] private bool _isCthulhu = false;
     [SerializeField] private float _delay = 0f;
@@ -208,14 +208,15 @@ public class AmibeCharacter : MonoBehaviour
         if(_isCthulhu == true)
         {
             _timeStamp += Time.deltaTime;
-
+            if (_timeStamp >= _delay)
+            {
+                _cthulhuRenderer.sprite = _cthulhuFly;
+                float speed = _timeStamp / 2;
+                transform.position += new Vector3 (0, speed, 0);
+                Debug.Log("Chtulluuuuuuu !!!!!");
+            }
         }
-        if (_timeStamp >= _delay)
-        {
-            _cthulhuRenderer.sprite = _cthulhuFly;
-            //transform.position += new Vector3(_timeStamp, _cha.y, _posCthulhu.z);
-            Debug.Log("Chtulluuuuuuu !!!!!");
-        }
+        
     }
 
 
@@ -269,15 +270,17 @@ public class AmibeCharacter : MonoBehaviour
             case Estate.Chimera:
                 if (_scoreDNA == _requireDNA)
                 {
+                    _scoreDNA = 0;
+                    _requireDNA = 6;
                     _chimeraObject.SetActive(false);
                     _cthulhuObject.SetActive(true);
+                    _rb2D.simulated = false;
                     _isCthulhu = true;
                     _timeStamp = 0;
-                    transform.position = _posCthulhu.position;
+                    transform.position = _posCthulhu.transform.position;
 
                 }
-                _scoreDNA = 0;
-                _requireDNA = 6;
+
                 break;
 
              default:
