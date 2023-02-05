@@ -32,8 +32,9 @@ public class AmibeCharacter : MonoBehaviour
 
     #region pausemenu
     public static Vector2 _lastCheckPointPos;
-    
-    //[SerializeField] private GameObject _pauseMenu = null;
+    [SerializeField] private Transform _spawnPoint;
+
+    [SerializeField] private GameObject _pauseMenu = null;
     #endregion
 
     #region Root
@@ -91,6 +92,15 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private PolygonCollider2D _chimeraPolyCollider2D = null;
     #endregion
 
+    #region Cthulhu
+    [SerializeField] private GameObject _cthulhuObject = null;
+    [SerializeField] private SpriteRenderer _cthulhuRenderer = null;
+    [SerializeField] private Transform _posCthulhu;
+    [SerializeField] private Sprite _cthulhuFly = null;
+    [SerializeField] private bool _isCthulhu = false;
+    [SerializeField] private float _delay = 0f;
+    [SerializeField] private float _timeStamp = 5;
+    #endregion Cthulhu
 
     [SerializeField] private GameObject _rootObject = null;
     [SerializeField] private GameObject _amibeObject = null;
@@ -119,14 +129,16 @@ public class AmibeCharacter : MonoBehaviour
     #region Methods
 
 
-    /*void Awake()
+    void Awake()
     {
         transform.position = _lastCheckPointPos;
-    }*/
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        transform.position = _spawnPoint.position;
+        _pauseMenu.SetActive(false);
         _rootObject.SetActive(true);
         RootStatusUpdate();
         //_pauseMenu.SetActive(false);
@@ -163,8 +175,8 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Escape))
         {
-            //_pauseMenu.SetActive(true);
-            Time.timeScale = 0;
+            _pauseMenu.SetActive(true);
+            Time.timeScale = 1;
         }
 
         if (_characterState == Estate.Root)
@@ -193,10 +205,17 @@ public class AmibeCharacter : MonoBehaviour
 
         }
 
+        if(_isCthulhu == true)
+        {
+            _timeStamp += Time.deltaTime;
 
-      
-
-
+        }
+        if (_timeStamp >= _delay)
+        {
+            _cthulhuRenderer.sprite = _cthulhuFly;
+            //transform.position += new Vector3(_timeStamp, _cha.y, _posCthulhu.z);
+            Debug.Log("Chtulluuuuuuu !!!!!");
+        }
     }
 
 
@@ -250,7 +269,12 @@ public class AmibeCharacter : MonoBehaviour
             case Estate.Chimera:
                 if (_scoreDNA == _requireDNA)
                 {
-                    Debug.Log("Chtulluuuuuuu !!!!!");
+                    _chimeraObject.SetActive(false);
+                    _cthulhuObject.SetActive(true);
+                    _isCthulhu = true;
+                    _timeStamp = 0;
+                    transform.position = _posCthulhu.position;
+
                 }
                 _scoreDNA = 0;
                 _requireDNA = 6;

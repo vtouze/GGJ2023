@@ -5,8 +5,6 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
     [SerializeField] private GameObject _uiToDisplay = null;
-    [SerializeField] private float _timer = 5f;
-    [SerializeField] private Animation _animation= null;
 
     void Start()
     {
@@ -25,12 +23,12 @@ public class Tutorial : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        /*if (collision.tag == "Player")
+        if (collision.tag == "Player")
         {
             _uiToDisplay.SetActive(false);
-        }*/
+            Destroy(gameObject);
+        }
         Debug.Log("Exit");
-        _uiToDisplay.SetActive(false);
 
 
     }
