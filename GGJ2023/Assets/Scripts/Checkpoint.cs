@@ -12,6 +12,7 @@ public class Checkpoint : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             AmibeCharacter._lastCheckPointPos = transform.position;
+            Debug.Log("fdfdfdf");
             _spriteRenderer.sprite = _spriteOpen;
         }
     }
