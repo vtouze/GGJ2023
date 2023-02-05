@@ -173,6 +173,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: afb98085d2a70294281a5ec3f0884ad0, type: 2}
   - {fileID: 11400000, guid: faac0a16d0eb08d43bd739700fb9ba19, type: 2}
   - {fileID: 11400000, guid: 273bd4de7866a694e8114b94eedce941, type: 2}
+  - {fileID: 11400000, guid: 16a389b91899e2a47973c3754f44c089, type: 2}
+  - {fileID: 11400000, guid: acdd73a163a50f44797e220ff89cde3c, type: 2}
   _mainSoundSource: {fileID: 1429136039}
   _musicSource: {fileID: 1642142540}
   _transitionSource: {fileID: 1890973878}
