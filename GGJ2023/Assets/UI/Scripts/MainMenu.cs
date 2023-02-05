@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject _menu = null;
     [SerializeField] private GameObject _title = null;
     [SerializeField] private GameObject _mainMenu = null;
     [SerializeField] private GameObject _settingsMenu = null;
@@ -45,5 +46,10 @@ public class MainMenu : MonoBehaviour
         _title.SetActive(false);
         _mainMenu.SetActive(false);
         _settingsMenu.SetActive(true);
+    }
+
+    public void Resume()
+    {
+        _menu.SetActive(false);
     }
 }
