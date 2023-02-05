@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87744370b371c984b82958ff44ebe188, type: 3}
-  m_Name: S_ADN
+  m_Name: S_Button
   m_EditorClassIdentifier: 
-  _key: S_ADN
-  _clip: {fileID: 8300000, guid: 76a8f0e1663e5f049b35d62ccd93ea88, type: 3}
+  _key: S_Button
+  _clip: {fileID: 8300000, guid: 6bda3f5674230d04b9c0f16e5ac1c6ed, type: 3}
   _volume: 1
   _pitch: 1
   _loop: 0
-  _pitchVariation: 0
-  _pitchVariationMin: 1
-  _pitchVariationMax: 1.22
+  _pitchVariation: 1
+  _pitchVariationMin: 0.8
+  _pitchVariationMax: 1.2
   multipleSoundRand: 0
   otherSounds: []
   overwriteSoundDataAttribute: 0
