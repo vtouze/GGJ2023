@@ -7,7 +7,6 @@ public class HUD : MonoBehaviour
 {
     [SerializeField] private AmibeCharacter _character = null;
     [SerializeField] private TMP_Text _scoreDNAText = null;
-    [SerializeField] private TMP_Text _requireDNAText = null;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +17,6 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _scoreDNAText.text = _character.ScoreDNA.ToString();
-        _requireDNAText.text = _character.RequireDNA.ToString();
+        _scoreDNAText.text = _character.ScoreDNA.ToString() + " / " + _character.RequireDNA.ToString();
     }
 }
