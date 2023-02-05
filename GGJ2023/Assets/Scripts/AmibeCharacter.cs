@@ -543,6 +543,21 @@ public class AmibeCharacter : MonoBehaviour
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
 
         }
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true && _isStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
@@ -630,6 +645,26 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+
+        }
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable == true && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isCellingStickable == true && _isStickable == true)
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            _rb2D.gravityScale = 1;
         }
         else
         {
