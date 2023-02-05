@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class AmibeCharacter : MonoBehaviour
@@ -98,7 +99,8 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private GameObject _posCthulhu;
     [SerializeField] private Sprite _cthulhuFly = null;
     [SerializeField] private bool _isCthulhu = false;
-    [SerializeField] private float _delay = 0f;
+    [SerializeField] private float _delay = 3f;
+    [SerializeField] private float _delay2 = 13f;
     [SerializeField] private float _timeStamp = 5;
     #endregion Cthulhu
 
@@ -180,7 +182,7 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.Escape))
         {
             _pauseMenu.SetActive(true);
-            Time.timeScale = 1;
+            Time.timeScale = 0;
         }
 
         if (_characterState == Estate.Root)
@@ -221,16 +223,19 @@ public class AmibeCharacter : MonoBehaviour
             if (_timeStamp >= _delay)
             {
                 _cthulhuRenderer.sprite = _cthulhuFly;
-                float speed = (_timeStamp * 0.01f);
+                float speed = (_timeStamp * 0.05f);
                 transform.position += new Vector3(0, speed, 0);
                 Debug.Log("Chtulluuuuuuu !!!!!");
-
-
                 if(_musicEndSecurity == false)
                 {
                     AudioManager.Instance.PlayMusic("M_5");
                     _musicEndSecurity = true;
                 }
+
+            }
+            if(_timeStamp >= _delay2)
+            {
+                SceneManager.LoadScene("Credits");
             }
         }
     }
