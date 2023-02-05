@@ -220,7 +220,7 @@ public class AmibeCharacter : MonoBehaviour
         if (collision.gameObject.tag == "Stickable")
         {
             _isStickable = true;
-            
+
         }
         else if (collision.gameObject.tag == "StickableCelling")
         {
@@ -229,6 +229,10 @@ public class AmibeCharacter : MonoBehaviour
         else if (collision.gameObject.tag == "DNA")
         {
             Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.tag == "Destroyable")
+        {
+            _objInRange = collision.gameObject;
         }
         
     }
@@ -248,6 +252,10 @@ public class AmibeCharacter : MonoBehaviour
             _scoreDNA++;
             Debug.Log(_characterState + " " + _scoreDNA);
             CheckEvolution();
+        }
+        else if (collision.gameObject.tag == "Destroyable")
+        {
+            _objInRange = null;
         }
     }
     #endregion
@@ -445,7 +453,7 @@ public class AmibeCharacter : MonoBehaviour
         #endregion
 
         #region Hover
-        if (Input.GetButton("Jump") && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
+        if (Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
         {
             AviaHoverStatusUpdate();
         }
@@ -476,10 +484,17 @@ public class AmibeCharacter : MonoBehaviour
     {
         #region Movement
         var movement = Input.GetAxis("Horizontal");
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1 && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
+        {
+            _characterAnim.SetBool("isWalking", true);
+        }
+        else
+        {
+            _characterAnim.SetBool("isWalking", false);
+        }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
-
         }
         else
         {
@@ -495,6 +510,11 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetButtonDown("Jump") && Mathf.Abs(_rb2D.velocity.y) < 0.001f)
         {
             _rb2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+            _characterAnim.SetBool("isJumping", true);
+        }
+        else
+        {
+            _characterAnim.SetBool("isJumping", false);
         }
         if (!Mathf.Approximately(0, movement))
         {
@@ -503,7 +523,7 @@ public class AmibeCharacter : MonoBehaviour
         #endregion
 
         #region Hover
-        if (Input.GetButton("Jump") && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
+        if (Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
         {
             ChimeraHoverStatusUpdate();
         }
@@ -514,7 +534,16 @@ public class AmibeCharacter : MonoBehaviour
         #endregion
 
         #region Strike
+        if (Input.GetKey(KeyCode.C))
+        {
+            _characterAnim.SetBool("isStriking", true);
+            Destroy(_objInRange.gameObject);
 
+        }
+        else
+        {
+            _characterAnim.SetBool("isStriking", false);
+        }
         #endregion
     }
     private void ChimeraStatusUpdate()
