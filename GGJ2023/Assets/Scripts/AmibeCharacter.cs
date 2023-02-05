@@ -119,6 +119,7 @@ public class AmibeCharacter : MonoBehaviour
 
     private float _movementSoundTimeStamp = 0.5f;
     private float _timeStampAttack = 0f;
+    private bool _musicEndSecurity = false;
 
     #endregion Sounds
 
@@ -208,18 +209,30 @@ public class AmibeCharacter : MonoBehaviour
 
         }
 
-        if(_isCthulhu == true)
+   
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isCthulhu == true)
         {
             _timeStamp += Time.deltaTime;
             if (_timeStamp >= _delay)
             {
                 _cthulhuRenderer.sprite = _cthulhuFly;
-                float speed = _timeStamp * 0.1f;
-                transform.position += new Vector3 (0, speed, 0);
+                float speed = (_timeStamp * 0.01f);
+                transform.position += new Vector3(0, speed, 0);
                 Debug.Log("Chtulluuuuuuu !!!!!");
+
+
+                if(_musicEndSecurity == false)
+                {
+                    AudioManager.Instance.PlayMusic("M_5");
+                    _musicEndSecurity = true;
+                }
             }
         }
-        
     }
 
 
