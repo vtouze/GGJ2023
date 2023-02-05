@@ -89,6 +89,7 @@ public class SettingsMenu : MonoBehaviour
             _selectedResolutions = 0;
         }
         SetResolutionText();
+        SetResolution();
     }
 
     public void ResolutionSup()
@@ -99,6 +100,7 @@ public class SettingsMenu : MonoBehaviour
             _selectedResolutions = _resolutions.Count - 1;
         }
         SetResolutionText();
+        SetResolution();
     }
 
     public void SetResolutionText()

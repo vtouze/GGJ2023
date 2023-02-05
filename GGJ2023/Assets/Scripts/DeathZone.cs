@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class DeathZone : MonoBehaviour
 {
     [SerializeField] private GameObject _pauseMenu = null;
-    [SerializeField] private GameObject _spawn = null;
+    //[SerializeField] private GameObject _spawn = null;
     [SerializeField] private GameObject _gameOver = null;
     [SerializeField] private Transform _player;
 
