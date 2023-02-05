@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87744370b371c984b82958ff44ebe188, type: 3}
-  m_Name: S_SlugMovement
+  m_Name: S_SlugMovement2
   m_EditorClassIdentifier: 
-  _key: S_SlugMovement
-  _clip: {fileID: 8300000, guid: 9c3258d7e9364e84ea4a09f13415b00b, type: 3}
-  _volume: 0.788
+  _key: S_SlugMovement2
+  _clip: {fileID: 8300000, guid: 2d43950d99403cf4d8ab343b75e875b7, type: 3}
+  _volume: 0.769
   _pitch: 1
   _loop: 0
   _pitchVariation: 1
   _pitchVariationMin: 0.82
   _pitchVariationMax: 1.22
-  multipleSoundRand: 1
-  otherSounds:
-  - {fileID: 11400000, guid: 9a8873e7475468e43a2153f50254c6ad, type: 2}
+  multipleSoundRand: 0
+  otherSounds: []

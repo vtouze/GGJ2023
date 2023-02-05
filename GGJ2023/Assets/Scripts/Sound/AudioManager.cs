@@ -421,11 +421,41 @@ public class AudioManager : Singleton<AudioManager>
 
     public void StartSound(string key)
     {
-        try
-        {
+      //  try
+       // {
             AudioSource sourceToPlay = Instantiate(_oneShotSoundSourcePrefab, transform);
 
-            SoundData soundDataToPlay = _soundData[key];
+            SoundData soundDataLoaded = _soundData[key];
+            SoundData soundDataToPlay;
+
+            if (soundDataLoaded.MultipleSoundRand == true)
+            {
+                int rand = Random.Range(0, soundDataLoaded.OtherSounds.Length + 1);
+                
+                    if (rand == 0)
+                    {
+                         soundDataToPlay = soundDataLoaded;
+                    }
+                    else
+                    {
+                         soundDataToPlay = soundDataLoaded.OtherSounds[rand-1];
+                    }
+            }
+            else
+            {
+                 soundDataToPlay = soundDataLoaded;
+            }
+
+            //AudioClip
+            AudioClip clipToPlay = soundDataToPlay.Clip;
+
+            sourceToPlay.clip = clipToPlay;
+
+            //Audio Source Attribute
+            if (soundDataLoaded.OverwriteSoundDataAttribute == true)
+            {
+                soundDataToPlay = soundDataLoaded;
+            }
 
             sourceToPlay.volume = (soundDataToPlay.Volume * _soundsVolume);
 
@@ -442,18 +472,15 @@ public class AudioManager : Singleton<AudioManager>
                 sourceToPlay.pitch = soundDataToPlay.Pitch;
             }
 
-            //AudioClip
-            AudioClip clipToPlay = soundDataToPlay.Clip;
 
-            sourceToPlay.clip = clipToPlay;
 
             //Play
             sourceToPlay.Play();
-        }
+       /* }
         catch
         {
             Debug.LogError("Error On PlaySound");
-        }
+        }*/
       
 
     }

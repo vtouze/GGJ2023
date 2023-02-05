@@ -18,5 +18,9 @@ MonoBehaviour:
   _pitch: 1
   _loop: 0
   _pitchVariation: 1
-  _pitchVariationMin: 0.7
-  _pitchVariationMax: 1.3
+  _pitchVariationMin: 0.75
+  _pitchVariationMax: 1.25
+  multipleSoundRand: 1
+  otherSounds:
+  - {fileID: 11400000, guid: 518cc8da1203b6840bdc48431b842ec2, type: 2}
+  - {fileID: 11400000, guid: 22e8c54738d48c546bfa32fb2cf1b0e5, type: 2}
