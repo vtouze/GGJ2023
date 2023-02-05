@@ -153,7 +153,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.21, y: 0.31}
+  m_Offset: {x: 0.11, y: 0.34}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -164,7 +164,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.18, y: 0.4}
+  m_Size: {x: 0.54, y: 0.46}
   m_EdgeRadius: 0
 --- !u!1 &5087164796964445731
 GameObject:
@@ -286,7 +286,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.69, y: 0.98}
+  m_Offset: {x: 0.37, y: 1.1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -297,7 +297,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.27, y: 1.63}
+  m_Size: {x: 1.08, y: 1.87}
   m_EdgeRadius: 0
 --- !u!60 &5087164796964445757
 PolygonCollider2D:
@@ -485,7 +485,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6, y: 0.57}
+  m_Offset: {x: 0.24, y: 0.75}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -496,7 +496,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 1}
+  m_Size: {x: 1.14, y: 1.12}
   m_EdgeRadius: 0
 --- !u!1 &5087164798639483094
 GameObject:
@@ -618,7 +618,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.36, y: 0.4}
+  m_Offset: {x: 0.06, y: 0.52}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -629,7 +629,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.58}
+  m_Size: {x: 0.97, y: 0.67}
   m_EdgeRadius: 0
 --- !u!60 &5087164798639483088
 PolygonCollider2D:
@@ -661,7 +661,8 @@ PolygonCollider2D:
       - {x: 0.44614315, y: 0.17736053}
       - {x: 0.44212314, y: 0.32912636}
       - {x: 0.28701395, y: 0.59535307}
-      - {x: -0.118463695, y: 0.76150167}
+      - {x: 0.06641768, y: 0.68975705}
+      - {x: -0.26714757, y: 0.685578}
       - {x: -0.4707078, y: 0.34099007}
 --- !u!1 &6339128028060565856
 GameObject:
@@ -691,7 +692,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6339128028060565856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.52, y: -2.59, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -718,6 +719,7 @@ MonoBehaviour:
   _velocity: {x: 2, y: 0}
   _upVelocity: {x: 0, y: 3}
   _isStickable: 0
+  _isCellingStickable: 0
   _characterState: 0
   _characterSprite: {fileID: 5087164796837855753}
   _characterAnim: {fileID: 5087164796837855754}
@@ -742,9 +744,9 @@ MonoBehaviour:
   _amibePolyCollider2D: {fileID: 5087164796837855751}
   _batraSprite: {fileID: 21300000, guid: a3775f093feb2f645994d2026380f516, type: 3}
   _batraAnim: {fileID: 5087164798639483089}
-  _batraJumpForce: 40
+  _batraJumpForce: 65
   _batraMass: 5
-  _batraLinearDrag: 2
+  _batraLinearDrag: 1
   _batraStickyCollider2D: {fileID: 5087164798639483055}
   _batraPolyCollider2D: {fileID: 5087164798639483088}
   _aviaSprite: {fileID: 21300000, guid: 0a31739baf4dd6548838feda1c9f8163, type: 3}
@@ -767,6 +769,8 @@ MonoBehaviour:
   _batraObject: {fileID: 5087164798639483094}
   _aviaObject: {fileID: 5087164797491757641}
   _chimeraObject: {fileID: 5087164796964445731}
+  _amibeMovementSoundDelay: 0.5
+  _batraMovementSoundDelay: 0.5
 --- !u!50 &6339128028060565884
 Rigidbody2D:
   serializedVersion: 4
