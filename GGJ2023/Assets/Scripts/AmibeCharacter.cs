@@ -727,11 +727,11 @@ public class AmibeCharacter : MonoBehaviour
                 {
                     AudioManager.Instance.StartSound("S_Attack");
                     _strikeSoundSecurity = true;
-
+                    _timeStampAttack = 0f;
                 }
                 else
                 {
-                    if (_timeStampAttack >= 0.2f)
+                    if (_timeStampAttack >= 0.1f)
                     {
                         _strikeSoundSecurity = false;
                     }
@@ -745,11 +745,11 @@ public class AmibeCharacter : MonoBehaviour
                 {
                     AudioManager.Instance.StartSound("S_Destruction");
                     _strikeSoundSecurity = true;
-
+                    _timeStampAttack = 0f;
                 }
                 else
                 {
-                    if (_timeStampAttack >= 0.2f)
+                    if (_timeStampAttack >= 0.1f)
                     {
                         _strikeSoundSecurity = false;
                     }
