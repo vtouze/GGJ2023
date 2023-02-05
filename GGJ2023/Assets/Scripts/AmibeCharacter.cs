@@ -18,7 +18,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private Vector2 _direction;
     [SerializeField] private float _hoverTime = 2f;
     [SerializeField] private float _notHoverTime = 2f;
-    
+    [SerializeField] private Camera _mainCamera = null;
     private bool _isGrounded = false;
     private float _movementSpeed = 5f;
     [SerializeField] private float _jumpForce = 50f;
@@ -36,6 +36,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private Animator _amibeAnim = null;
     [SerializeField] private float _amibeMass = 1f;
     [SerializeField] private float _amibeLinearDrag = 1f;
+    [SerializeField] private float _amibeFOV = 2f;
     [SerializeField] private BoxCollider2D _amibeStickyCollider2D = null;
     [SerializeField] private PolygonCollider2D _amibePolyCollider2D = null;
 
@@ -48,6 +49,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _batraJumpForce = 1f;
     [SerializeField] private float _batraMass = 1f;
     [SerializeField] private float _batraLinearDrag = 1f;
+    [SerializeField] private float _batraFOV = 2f;
     [SerializeField] private BoxCollider2D _batraStickyCollider2D = null;
     [SerializeField] private PolygonCollider2D _batraPolyCollider2D = null;
     #endregion
@@ -60,6 +62,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _aviaMass = 1f;
     [SerializeField] private float _aviaLinearDrag = 1f;
     [SerializeField] private float _aviaHoverLinearDrag = 1f;
+    [SerializeField] private float _aviaFOV = 2f;
     [SerializeField] private BoxCollider2D _aviaStickyCollider2D = null;
     [SerializeField] private PolygonCollider2D _aviaPolyCollider2D = null;
     #endregion
@@ -72,9 +75,11 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _chimeraMass = 1f;
     [SerializeField] private float _chimeraLinearDrag = 1f;
     [SerializeField] private float _chimeraHoverLinearDrag = 1f;
+    [SerializeField] private float _chimeraFOV = 2f;
     [SerializeField] private BoxCollider2D _chimeraStickyCollider2D = null;
     [SerializeField] private PolygonCollider2D _chimeraPolyCollider2D = null;
     #endregion
+
     [SerializeField] private GameObject _amibeObject = null;
     [SerializeField] private GameObject _batraObject = null;
     [SerializeField] private GameObject _aviaObject = null;
@@ -331,6 +336,7 @@ public class AmibeCharacter : MonoBehaviour
     {
         _amibeObject.SetActive(true);
         _characterState = Estate.Amibe;
+        _mainCamera.orthographicSize = _amibeFOV;
         _characterPolyCollider2D = _amibePolyCollider2D;
         _sticking2DColliderBox = _amibeStickyCollider2D;
     }
@@ -414,6 +420,7 @@ public class AmibeCharacter : MonoBehaviour
         _sticking2DColliderBox = _batraStickyCollider2D;
         _characterAnim = _batraAnim;
         _characterState = Estate.Batra;
+        _mainCamera.orthographicSize = _batraFOV;
     }
 
     private void AviaController()
@@ -500,6 +507,7 @@ public class AmibeCharacter : MonoBehaviour
         _sticking2DColliderBox = _aviaStickyCollider2D;
         _characterAnim = _aviaAnim;
         _characterState = Estate.Avia;
+        _mainCamera.orthographicSize = _aviaFOV;
     }
     private void AviaHoverStatusUpdate()
     {
@@ -600,6 +608,7 @@ public class AmibeCharacter : MonoBehaviour
         _sticking2DColliderBox = _chimeraStickyCollider2D;
         _characterAnim = _chimeraAnim;
         _characterState = Estate.Chimera;
+        _mainCamera.orthographicSize = _chimeraFOV;
     }
 
     private void ChimeraHoverStatusUpdate()
