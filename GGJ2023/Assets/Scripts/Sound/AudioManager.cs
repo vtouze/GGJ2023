@@ -116,6 +116,7 @@ public class AudioManager : Singleton<AudioManager>
         _timerFadeOutTick.OnTick += FadeOutTick;
 
         StartSound("S_Ambiant");
+        _musicNumber = Random.Range(1, 5);
         AutomaticMusic();
 
     }
@@ -372,8 +373,8 @@ public class AudioManager : Singleton<AudioManager>
     IEnumerator CoroutineMusicCheck()
     {
         yield return new WaitForSeconds(10f);
-        if (MusicCheck() == true) StartCoroutine(CoroutineCalmBetweenMusic());
-        else CoroutineMusicCheck();
+        if (MusicCheck() == true) CoroutineMusicCheck();
+        else StartCoroutine(CoroutineCalmBetweenMusic());
     }
 
     private bool MusicCheck()
@@ -420,31 +421,58 @@ public class AudioManager : Singleton<AudioManager>
 
     public void StartSound(string key)
     {
-       // try
-        //{
-                AudioSource sourceToPlay = Instantiate(_oneShotSoundSourcePrefab, transform);
+      //  try
+       // {
+            AudioSource sourceToPlay = Instantiate(_oneShotSoundSourcePrefab, transform);
 
-                SoundData soundDataToPlay = _soundData[key];
+            SoundData soundDataLoaded = _soundData[key];
+            SoundData soundDataToPlay;
 
-                sourceToPlay.volume = (soundDataToPlay.Volume * _soundsVolume);
+            if (soundDataLoaded.MultipleSoundRand == true)
+            {
+                int rand = Random.Range(0, soundDataLoaded.OtherSounds.Length + 1);
+                
+                    if (rand == 0)
+                    {
+                         soundDataToPlay = soundDataLoaded;
+                    }
+                    else
+                    {
+                         soundDataToPlay = soundDataLoaded.OtherSounds[rand-1];
+                    }
+            }
+            else
+            {
+                 soundDataToPlay = soundDataLoaded;
+            }
 
-                //Loop
-                sourceToPlay.loop = soundDataToPlay.Loop;
+            //AudioClip
+            AudioClip clipToPlay = soundDataToPlay.Clip;
 
-                //PitchVariation
-                if (soundDataToPlay.PitchVariation == true)
-                {
-                    sourceToPlay.pitch = (Random.Range(soundDataToPlay.PitchVariationMin, soundDataToPlay.PitchVariationMax));
-                }
-                else
-                {
-                    sourceToPlay.pitch = soundDataToPlay.Pitch;
-                }
+            sourceToPlay.clip = clipToPlay;
 
-                //AudioClip
-                AudioClip clipToPlay = soundDataToPlay.Clip;
+            //Audio Source Attribute
+            if (soundDataLoaded.OverwriteSoundDataAttribute == true)
+            {
+                soundDataToPlay = soundDataLoaded;
+            }
 
-                sourceToPlay.clip = clipToPlay;
+            sourceToPlay.volume = (soundDataToPlay.Volume * _soundsVolume);
+
+            //Loop
+            sourceToPlay.loop = soundDataToPlay.Loop;
+
+            //PitchVariation
+            if (soundDataToPlay.PitchVariation == true)
+            {
+                sourceToPlay.pitch = (Random.Range(soundDataToPlay.PitchVariationMin, soundDataToPlay.PitchVariationMax));
+            }
+            else
+            {
+                sourceToPlay.pitch = soundDataToPlay.Pitch;
+            }
+
+
 
             //Play
             sourceToPlay.Play();
