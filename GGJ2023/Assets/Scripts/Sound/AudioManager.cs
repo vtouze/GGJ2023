@@ -116,6 +116,7 @@ public class AudioManager : Singleton<AudioManager>
         _timerFadeOutTick.OnTick += FadeOutTick;
 
         StartSound("S_Ambiant");
+        _musicNumber = Random.Range(1, 5);
         AutomaticMusic();
 
     }
@@ -372,8 +373,8 @@ public class AudioManager : Singleton<AudioManager>
     IEnumerator CoroutineMusicCheck()
     {
         yield return new WaitForSeconds(10f);
-        if (MusicCheck() == true) StartCoroutine(CoroutineCalmBetweenMusic());
-        else CoroutineMusicCheck();
+        if (MusicCheck() == true) CoroutineMusicCheck();
+        else StartCoroutine(CoroutineCalmBetweenMusic());
     }
 
     private bool MusicCheck()
@@ -420,39 +421,39 @@ public class AudioManager : Singleton<AudioManager>
 
     public void StartSound(string key)
     {
-       // try
-        //{
-                AudioSource sourceToPlay = Instantiate(_oneShotSoundSourcePrefab, transform);
+        try
+        {
+            AudioSource sourceToPlay = Instantiate(_oneShotSoundSourcePrefab, transform);
 
-                SoundData soundDataToPlay = _soundData[key];
+            SoundData soundDataToPlay = _soundData[key];
 
-                sourceToPlay.volume = (soundDataToPlay.Volume * _soundsVolume);
+            sourceToPlay.volume = (soundDataToPlay.Volume * _soundsVolume);
 
-                //Loop
-                sourceToPlay.loop = soundDataToPlay.Loop;
+            //Loop
+            sourceToPlay.loop = soundDataToPlay.Loop;
 
-                //PitchVariation
-                if (soundDataToPlay.PitchVariation == true)
-                {
-                    sourceToPlay.pitch = (Random.Range(soundDataToPlay.PitchVariationMin, soundDataToPlay.PitchVariationMax));
-                }
-                else
-                {
-                    sourceToPlay.pitch = soundDataToPlay.Pitch;
-                }
+            //PitchVariation
+            if (soundDataToPlay.PitchVariation == true)
+            {
+                sourceToPlay.pitch = (Random.Range(soundDataToPlay.PitchVariationMin, soundDataToPlay.PitchVariationMax));
+            }
+            else
+            {
+                sourceToPlay.pitch = soundDataToPlay.Pitch;
+            }
 
-                //AudioClip
-                AudioClip clipToPlay = soundDataToPlay.Clip;
+            //AudioClip
+            AudioClip clipToPlay = soundDataToPlay.Clip;
 
-                sourceToPlay.clip = clipToPlay;
+            sourceToPlay.clip = clipToPlay;
 
             //Play
             sourceToPlay.Play();
-       /* }
+        }
         catch
         {
             Debug.LogError("Error On PlaySound");
-        }*/
+        }
       
 
     }
