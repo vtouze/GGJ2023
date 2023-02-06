@@ -481,8 +481,8 @@ public class AmibeCharacter : MonoBehaviour
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
         }
-        
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 10f, Vector2.up);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
         if (hit.collider == _isCellingStickable)
         {
             Debug.DrawRay(transform.position, Vector2.up, Color.red);
