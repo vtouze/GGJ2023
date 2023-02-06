@@ -11,9 +11,10 @@ public class AmibeCharacter : MonoBehaviour
     #region Fields
 
     [SerializeField] private Rigidbody2D _rb2D = null;
-    [SerializeField] private Vector2 _velocity;
-    [SerializeField] private Vector2 _upVelocity;
-    [SerializeField] private Vector2 _downVelocity;
+    [SerializeField] private Vector2 _walkVelocity;
+    [SerializeField] private Vector2 _climbVelocity;
+    [SerializeField] private Vector2 _stickyCellingVelocity;
+    [SerializeField] private Vector2 _detachCellingVelocity;
     [SerializeField] private bool _isStickable = false;
     [SerializeField] private bool _isCellingStickable = false;
     [SerializeField] private Estate _characterState = Estate.Amibe;
@@ -428,7 +429,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
-            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.MovePosition(_rb2D.position + _climbVelocity * Time.fixedDeltaTime);
 
         }
         else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
@@ -437,7 +438,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
-            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.MovePosition(_rb2D.position + _stickyCellingVelocity * Time.fixedDeltaTime);
 
         }
         else
@@ -486,12 +487,12 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
-            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.MovePosition(_rb2D.position + _climbVelocity * Time.fixedDeltaTime);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
             if (hit.collider == _isCellingStickable)
             {
                 Debug.DrawRay(transform.position, Vector2.up, Color.red);
-                _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+                _rb2D.MovePosition(_rb2D.position + _stickyCellingVelocity * Time.fixedDeltaTime);
                 _rb2D.gravityScale = 0;
 
             }
@@ -503,7 +504,7 @@ public class AmibeCharacter : MonoBehaviour
             if (hitAgain.collider == _isCellingStickable)
             {
                 Debug.DrawRay(transform.position, Vector2.up, Color.red);
-                _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+                _rb2D.MovePosition(_rb2D.position + _stickyCellingVelocity * Time.fixedDeltaTime);
                 _rb2D.gravityScale = 0;
 
             }
@@ -515,7 +516,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.DownArrow) && _isCellingStickable)
         {
-            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
+            _rb2D.MovePosition(_rb2D.position + _detachCellingVelocity * Time.fixedDeltaTime);
             _rb2D.gravityScale = 1;
         }
         if (!Mathf.Approximately(0, movement))
@@ -586,7 +587,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
-            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.MovePosition(_rb2D.position + _stickyCellingVelocity * Time.fixedDeltaTime);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
             if (hit.collider == _isCellingStickable)
             {
@@ -613,7 +614,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.DownArrow) && _isCellingStickable)
         {
-            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
+            _rb2D.MovePosition(_rb2D.position + _detachCellingVelocity * Time.fixedDeltaTime);
             _rb2D.gravityScale = 1;
         }
         if (!Mathf.Approximately(0, movement))
@@ -696,7 +697,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
-            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            _rb2D.MovePosition(_rb2D.position + _stickyCellingVelocity * Time.fixedDeltaTime);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
             if (hit.collider == _isCellingStickable)
             {
@@ -723,7 +724,7 @@ public class AmibeCharacter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.DownArrow) && _isCellingStickable)
         {
-            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
+            _rb2D.MovePosition(_rb2D.position + _detachCellingVelocity * Time.fixedDeltaTime);
             _rb2D.gravityScale = 1;
         }
         if (!Mathf.Approximately(0, movement))
