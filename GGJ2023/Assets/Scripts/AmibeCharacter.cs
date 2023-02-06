@@ -160,7 +160,7 @@ public class AmibeCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* debug button
+         //debug button
         if (Input.GetKey(KeyCode.A))
         {
             _amibeObject.SetActive(true);
@@ -183,7 +183,7 @@ public class AmibeCharacter : MonoBehaviour
             _aviaObject.SetActive(false);
             _chimeraObject.SetActive(true);
             ChimeraStatusUpdate();
-        }*/
+        }
 
         if (Input.GetKey(KeyCode.Escape))
         {
@@ -776,8 +776,12 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.C))
         {
             _characterAnim.SetBool("isStriking", true);
-            Destroy(_objInRange.gameObject);
 
+            if (_objInRange != null)
+            {
+                Destroy(_objInRange.gameObject);
+                
+            }
             if (_objInRange == null) 
             { 
                 if(_strikeSoundSecurity == false)
