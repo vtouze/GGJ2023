@@ -394,7 +394,6 @@ GameObject:
   - component: {fileID: 5087164797491757636}
   - component: {fileID: 5087164797491757639}
   - component: {fileID: 5087164797491757635}
-  - component: {fileID: 8164436410589397180}
   - component: {fileID: 1049008621}
   m_Layer: 0
   m_Name: Avia
@@ -503,7 +502,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.3, y: 0.78}
+  m_Offset: {x: 0.3, y: 0.9}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -514,33 +513,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.12}
-  m_EdgeRadius: 0
---- !u!61 &8164436410589397180
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5087164797491757641}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.59}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.58, y: 1.18}
-    newSize: {x: 0.6, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.39, y: 1.18}
+  m_Size: {x: 1.44, y: 1.36}
   m_EdgeRadius: 0
 --- !u!58 &1049008621
 CircleCollider2D:
@@ -937,7 +910,7 @@ MonoBehaviour:
   _batraPolyCollider2D: {fileID: 5087164798639483055}
   _aviaSprite: {fileID: 21300000, guid: 0a31739baf4dd6548838feda1c9f8163, type: 3}
   _aviaAnim: {fileID: 5087164797491757636}
-  _aviaWalkVelocity: 5
+  _aviaWalkVelocity: 6
   _aviaJumpForce: 40
   _aviaMass: 4
   _aviaLinearDrag: 0.5
@@ -947,8 +920,8 @@ MonoBehaviour:
   _aviaPolyCollider2D: {fileID: 5087164797491757635}
   _chimeraSprite: {fileID: 21300000, guid: dee3c20c7ab600244b6ea94e0e0390d6, type: 3}
   _chimeraAnim: {fileID: 5087164796964445758}
-  _chimeraWalkVelocity: 5
-  _chimeraJumpForce: 120
+  _chimeraWalkVelocity: 7
+  _chimeraJumpForce: 60
   _chimeraMass: 6
   _chimeraLinearDrag: 0.2
   _chimeraHoverLinearDrag: 10

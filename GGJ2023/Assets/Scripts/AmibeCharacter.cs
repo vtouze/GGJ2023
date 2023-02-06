@@ -191,6 +191,14 @@ public class AmibeCharacter : MonoBehaviour
             Time.timeScale = 0;
         }
 
+        
+
+   
+        
+    }
+
+    private void FixedUpdate()
+    {
         if (_characterState == Estate.Root)
         {
             RootController();
@@ -199,11 +207,11 @@ public class AmibeCharacter : MonoBehaviour
         if (_characterState == Estate.Amibe)
         {
             AmibeController();
-            
+
         }
         else if (_characterState == Estate.Batra)
         {
-            
+
             BatraController();
 
         }
@@ -215,19 +223,6 @@ public class AmibeCharacter : MonoBehaviour
         else if (_characterState == Estate.Chimera)
         {
             ChimeraController();
-
-        }
-
-   
-        
-    }
-
-    private void FixedUpdate()
-    {
-        if (_characterState == Estate.Batra)
-        {
-
-            BatraController();
 
         }
 
@@ -769,10 +764,12 @@ public class AmibeCharacter : MonoBehaviour
         #region Hover
         if (Input.GetKey(KeyCode.LeftShift) && Mathf.Abs(_rb2D.velocity.y) > 0.001f)
         {
+            _characterAnim.SetBool("isHovering", true);
             ChimeraHoverStatusUpdate();
         }
         else
         {
+            _characterAnim.SetBool("isHovering", false);
             ChimeraStatusUpdate();
         }
         #endregion
