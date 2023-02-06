@@ -160,7 +160,7 @@ public class AmibeCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // debug button
+        /* debug button
         if (Input.GetKey(KeyCode.A))
         {
             _amibeObject.SetActive(true);
@@ -183,7 +183,7 @@ public class AmibeCharacter : MonoBehaviour
             _aviaObject.SetActive(false);
             _chimeraObject.SetActive(true);
             ChimeraStatusUpdate();
-        }
+        }*/
 
         if (Input.GetKey(KeyCode.Escape))
         {
@@ -191,14 +191,6 @@ public class AmibeCharacter : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        
-
-   
-        
-    }
-
-    private void FixedUpdate()
-    {
         if (_characterState == Estate.Root)
         {
             RootController();
@@ -225,6 +217,12 @@ public class AmibeCharacter : MonoBehaviour
             ChimeraController();
 
         }
+
+    }
+
+    private void FixedUpdate()
+    {
+
 
         if (_isCthulhu == true)
         {
