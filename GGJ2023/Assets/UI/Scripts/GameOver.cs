@@ -41,6 +41,7 @@ public class GameOver : MonoBehaviour
     public void Retry()
     {
         _gameOver.SetActive(false);
+        Time.timeScale = 1;
         _player.transform.position = AmibeCharacter._lastCheckPointPos;
     }
 
