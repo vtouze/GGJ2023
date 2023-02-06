@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 5087164796837855755}
   - component: {fileID: 5087164796837855754}
   - component: {fileID: 5087164796837855753}
-  - component: {fileID: 5087164796837855751}
   - component: {fileID: 5087164796837855752}
+  - component: {fileID: 4166103110209432519}
   m_Layer: 0
   m_Name: Amibe
   m_TagString: Player
@@ -191,39 +191,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5087164796837855751
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5087164796837855756}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.6, y: 0.5}
-    newSize: {x: 0.6, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.22999999, y: 0.5}
-      - {x: -0.29999998, y: 0.42}
-      - {x: -0.29999998, y: 0.08}
-      - {x: -0.21, y: 0}
-      - {x: 0.19999999, y: 0}
-      - {x: 0.29999998, y: 0.08}
-      - {x: 0.29999998, y: 0.42}
-      - {x: 0.17, y: 0.5}
 --- !u!61 &5087164796837855752
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -250,6 +217,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.54, y: 0.46}
   m_EdgeRadius: 0
+--- !u!61 &4166103110209432519
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087164796837855756}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.25}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 0.6, y: 0.5}
+    newSize: {x: 0.6, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &5087164796964445731
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +255,7 @@ GameObject:
   - component: {fileID: 5087164796964445758}
   - component: {fileID: 5087164796964445729}
   - component: {fileID: 5087164796964445756}
-  - component: {fileID: 5087164796964445757}
+  - component: {fileID: 6595716871360939559}
   m_Layer: 0
   m_Name: Chimera
   m_TagString: Player
@@ -383,8 +376,8 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.32, y: 1.78}
   m_EdgeRadius: 0
---- !u!60 &5087164796964445757
-PolygonCollider2D:
+--- !u!61 &6595716871360939559
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -396,7 +389,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.89}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -406,16 +399,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.896837, y: 1.687913}
-      - {x: -0.7911992, y: 1.0447378}
-      - {x: -0.31205305, y: 0.78895664}
-      - {x: -0.37332562, y: -0.0024280548}
-      - {x: 0.445, y: 0}
-      - {x: 0.45499998, y: 0.01}
-      - {x: 0.79760414, y: 1.4873009}
-      - {x: 0.6423151, y: 1.8914121}
+  serializedVersion: 2
+  m_Size: {x: 1.67, y: 1.78}
+  m_EdgeRadius: 0
 --- !u!1 &5087164797491757641
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,8 +413,8 @@ GameObject:
   - component: {fileID: 5087164797491757640}
   - component: {fileID: 5087164797491757636}
   - component: {fileID: 5087164797491757639}
-  - component: {fileID: 5087164797491757634}
   - component: {fileID: 5087164797491757635}
+  - component: {fileID: 8164436410589397180}
   m_Layer: 0
   m_Name: Avia
   m_TagString: Player
@@ -523,39 +509,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5087164797491757634
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5087164797491757641}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.58, y: 1.18}
-    newSize: {x: 0.6, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.3921449, y: 0.5251188}
-      - {x: -0.38756347, y: 0.00035572052}
-      - {x: 0.23845081, y: -0.0010712054}
-      - {x: 0.62468606, y: 0.46945953}
-      - {x: 0.72532785, y: 0.89005566}
-      - {x: 0.3085638, y: 1.1885973}
-      - {x: -0.67825836, y: 1.1790763}
-      - {x: -0.88494956, y: 0.9398141}
 --- !u!61 &5087164797491757635
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -582,6 +535,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.14, y: 1.12}
   m_EdgeRadius: 0
+--- !u!61 &8164436410589397180
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087164797491757641}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.59}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1.58, y: 1.18}
+    newSize: {x: 0.6, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.58, y: 1.18}
+  m_EdgeRadius: 0
 --- !u!1 &5087164798639483094
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +573,7 @@ GameObject:
   - component: {fileID: 5087164798639483089}
   - component: {fileID: 5087164798639483092}
   - component: {fileID: 5087164798639483055}
-  - component: {fileID: 5087164798639483088}
+  - component: {fileID: 7644298406465257226}
   m_Layer: 0
   m_Name: Batra
   m_TagString: Player
@@ -715,8 +694,8 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.97, y: 0.67}
   m_EdgeRadius: 0
---- !u!60 &5087164798639483088
-PolygonCollider2D:
+--- !u!61 &7644298406465257226
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -728,7 +707,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.345}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -738,16 +717,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.47206792, y: 0.006025085}
-      - {x: 0.1704946, y: 0.004346423}
-      - {x: 0.44614315, y: 0.17736053}
-      - {x: 0.44212314, y: 0.32912636}
-      - {x: 0.28701395, y: 0.59535307}
-      - {x: 0.06641768, y: 0.68975705}
-      - {x: -0.26714757, y: 0.685578}
-      - {x: -0.4707078, y: 0.34099007}
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.69}
+  m_EdgeRadius: 0
 --- !u!1 &5455590169577250048
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,15 +730,15 @@ GameObject:
   m_Component:
   - component: {fileID: 3545789069179588354}
   - component: {fileID: 8204602588071299635}
-  - component: {fileID: 8647683438222108557}
   - component: {fileID: 6953077399909476355}
+  - component: {fileID: 3878144674777115206}
   m_Layer: 0
   m_Name: Root
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3545789069179588354
 Transform:
   m_ObjectHideFlags: 0
@@ -834,8 +806,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8647683438222108557
-PolygonCollider2D:
+--- !u!95 &6953077399909476355
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5455590169577250048}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!61 &3878144674777115206
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -857,32 +849,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.3, y: 0.4}
-      - {x: 0.3, y: -0.4}
-      - {x: -0.29999998, y: -0.4}
-      - {x: -0.3, y: 0.4}
---- !u!95 &6953077399909476355
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5455590169577250048}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.69}
+  m_EdgeRadius: 0
 --- !u!1 &6339128028060565856
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,54 +922,55 @@ MonoBehaviour:
   _requireDNA: 1
   _objInRange: {fileID: 0}
   _sticking2DColliderBox: {fileID: 5087164796837855752}
-  _characterPolyCollider2D: {fileID: 5087164796837855751}
+  _characterPolyCollider2D: {fileID: 0}
   groundCheck: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
   _spawnPoint: {fileID: 0}
   _pauseMenu: {fileID: 0}
-  _rootPolyCollider2D: {fileID: 8647683438222108557}
+  _rootPolyCollider2D: {fileID: 3878144674777115206}
   _rootFOV: 2
   _amibeSprite: {fileID: 21300000, guid: 125b428acd71ee3418892bd09d8c8447, type: 3}
   _amibeAnim: {fileID: 5087164796837855754}
   _amibeMass: 2
-  _amibeLinearDrag: 4
-  _amibeFOV: 4
+  _amibeLinearDrag: 2
+  _amibeFOV: 3.5
   _amibeStickyCollider2D: {fileID: 5087164796837855752}
-  _amibePolyCollider2D: {fileID: 5087164796837855751}
+  _amibeCollider2D: {fileID: 5087164796837855752}
   _batraSprite: {fileID: 21300000, guid: a3775f093feb2f645994d2026380f516, type: 3}
   _batraAnim: {fileID: 5087164798639483089}
-  _batraJumpForce: 60
+  _batraJumpForce: 65
   _batraMass: 5
   _batraLinearDrag: 1
-  _batraFOV: 5
+  _batraFOV: 4
   _batraStickyCollider2D: {fileID: 5087164798639483055}
-  _batraPolyCollider2D: {fileID: 5087164798639483088}
+  _batraCollider2D: {fileID: 5087164798639483055}
   _aviaSprite: {fileID: 21300000, guid: 0a31739baf4dd6548838feda1c9f8163, type: 3}
   _aviaAnim: {fileID: 5087164797491757636}
   _aviaJumpForce: 60
   _aviaMass: 5
-  _aviaLinearDrag: 1
-  _aviaHoverLinearDrag: 20
-  _aviaFOV: 8
+  _aviaLinearDrag: 0.5
+  _aviaHoverLinearDrag: 12
+  _aviaFOV: 5
   _aviaStickyCollider2D: {fileID: 5087164797491757635}
-  _aviaPolyCollider2D: {fileID: 5087164797491757634}
+  _aviaCollider2D: {fileID: 5087164797491757635}
   _chimeraSprite: {fileID: 21300000, guid: dee3c20c7ab600244b6ea94e0e0390d6, type: 3}
   _chimeraAnim: {fileID: 5087164796964445758}
   _chimeraJumpForce: 60
   _chimeraMass: 5
-  _chimeraLinearDrag: 0.5
-  _chimeraHoverLinearDrag: 1
-  _chimeraFOV: 9
+  _chimeraLinearDrag: 0.2
+  _chimeraHoverLinearDrag: 10
+  _chimeraFOV: 7
   _chimeraStickyCollider2D: {fileID: 5087164796964445756}
-  _chimeraPolyCollider2D: {fileID: 5087164796964445757}
+  _chimeraCollider2D: {fileID: 5087164796964445756}
   _cthulhuObject: {fileID: 1504105879}
   _cthulhuRenderer: {fileID: 1504105881}
   _posCthulhu: {fileID: 0}
   _cthulhuFly: {fileID: 21300000, guid: 1bde2be8f1b434c4e97be7b57c7575ed, type: 3}
   _isCthulhu: 0
   _delay: 0
+  _endDelay: 13
   _timeStamp: 5
   _rootObject: {fileID: 5455590169577250048}
   _amibeObject: {fileID: 5087164796837855756}
