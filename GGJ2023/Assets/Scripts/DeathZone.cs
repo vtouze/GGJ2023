@@ -21,7 +21,7 @@ public class DeathZone : MonoBehaviour
         if (player.tag == "Player")
         {
             _gameOver.SetActive(true);
-            Time.timeScale = 1;
+            Time.timeScale = 0;
 
         }
     }
