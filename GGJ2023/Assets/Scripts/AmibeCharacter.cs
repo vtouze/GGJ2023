@@ -29,8 +29,6 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private int _scoreDNA = 0;
     [SerializeField] private int _requireDNA = 1;
     [SerializeField] private GameObject _objInRange;
-    [SerializeField] private BoxCollider2D _sticking2DColliderBox = null;
-    [SerializeField] private PolygonCollider2D _characterPolyCollider2D = null;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
@@ -42,7 +40,7 @@ public class AmibeCharacter : MonoBehaviour
     #endregion
 
     #region Root
-    [SerializeField] private PolygonCollider2D _rootPolyCollider2D = null;
+    [SerializeField] private BoxCollider2D _rootPolyCollider2D = null;
     [SerializeField] private float _rootFOV = 2f;
     #endregion
 
@@ -54,7 +52,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _amibeLinearDrag = 1f;
     [SerializeField] private float _amibeFOV = 2f;
     [SerializeField] private BoxCollider2D _amibeStickyCollider2D = null;
-    [SerializeField] private PolygonCollider2D _amibePolyCollider2D = null;
+    [SerializeField] private BoxCollider2D _amibePolyCollider2D = null;
 
     #endregion
 
@@ -67,7 +65,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _batraLinearDrag = 1f;
     [SerializeField] private float _batraFOV = 2f;
     [SerializeField] private BoxCollider2D _batraStickyCollider2D = null;
-    [SerializeField] private PolygonCollider2D _batraPolyCollider2D = null;
+    [SerializeField] private BoxCollider2D _batraPolyCollider2D = null;
     #endregion
 
     #region Avia
@@ -80,7 +78,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _aviaHoverLinearDrag = 1f;
     [SerializeField] private float _aviaFOV = 2f;
     [SerializeField] private BoxCollider2D _aviaStickyCollider2D = null;
-    [SerializeField] private PolygonCollider2D _aviaPolyCollider2D = null;
+    [SerializeField] private BoxCollider2D _aviaPolyCollider2D = null;
     #endregion
 
     #region Chimera
@@ -93,7 +91,7 @@ public class AmibeCharacter : MonoBehaviour
     [SerializeField] private float _chimeraHoverLinearDrag = 1f;
     [SerializeField] private float _chimeraFOV = 2f;
     [SerializeField] private BoxCollider2D _chimeraStickyCollider2D = null;
-    [SerializeField] private PolygonCollider2D _chimeraPolyCollider2D = null;
+    [SerializeField] private BoxCollider2D _chimeraPolyCollider2D = null;
     #endregion
 
     #region Cthulhu
@@ -222,6 +220,13 @@ public class AmibeCharacter : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_characterState == Estate.Batra)
+        {
+
+            BatraController();
+
+        }
+
         if (_isCthulhu == true)
         {
             _timeStamp += Time.deltaTime;
@@ -395,7 +400,6 @@ public class AmibeCharacter : MonoBehaviour
         _rootObject.SetActive(true);
         _characterState = Estate.Root;
         _mainCamera.orthographicSize = _rootFOV;
-        _characterPolyCollider2D = _rootPolyCollider2D;
     }
 
     private void AmibeController()
@@ -447,8 +451,6 @@ public class AmibeCharacter : MonoBehaviour
         _rootObject.SetActive(false);
         _amibeObject.SetActive(true);
         _mainCamera.orthographicSize = _amibeFOV;
-        _characterPolyCollider2D = _amibePolyCollider2D;
-        _sticking2DColliderBox = _amibeStickyCollider2D;
         _characterState = Estate.Amibe;
     }
 
@@ -480,25 +482,34 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
-        }
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
+            if (hit.collider == _isCellingStickable)
+            {
+                Debug.DrawRay(transform.position, Vector2.up, Color.red);
+                _rb2D.gravityScale = 0;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
-        if (hit.collider == _isCellingStickable)
-        {
-            Debug.DrawRay(transform.position, Vector2.up, Color.red);
-            
-            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
-            _rb2D.gravityScale = 0;                        
-        }
+            }
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        }
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable)
         {
-            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
-            _rb2D.gravityScale = 1;
+            RaycastHit2D hitAgain = Physics2D.Raycast(transform.position, Vector2.up);
+            if (hitAgain.collider == _isCellingStickable)
+            {
+                Debug.DrawRay(transform.position, Vector2.up, Color.red);
+                _rb2D.gravityScale = 0;
+
+            }
+
         }
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        if (Input.GetKey(KeyCode.DownArrow) && _isCellingStickable)
+        {
+            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 1;
         }
         if (!Mathf.Approximately(0, movement))
         {
@@ -532,8 +543,7 @@ public class AmibeCharacter : MonoBehaviour
         _rb2D.mass = _batraMass;
         _rb2D.drag = _batraLinearDrag;
         _jumpForce = _batraJumpForce;
-        _characterPolyCollider2D = _batraPolyCollider2D;
-        _sticking2DColliderBox = _batraStickyCollider2D;
+
         _characterAnim = _batraAnim;
         _mainCamera.orthographicSize = _batraFOV;
         _characterState = Estate.Batra;
@@ -570,25 +580,34 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
+            if (hit.collider == _isCellingStickable)
+            {
+                Debug.DrawRay(transform.position, Vector2.up, Color.red);
+                _rb2D.gravityScale = 0;
+
+            }
 
         }
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
-        if (hit.collider == _isCellingStickable)
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable)
         {
-            Debug.DrawRay(transform.position, Vector2.up, Color.red);
+            RaycastHit2D hitAgain = Physics2D.Raycast(transform.position, Vector2.up);
+            if (hitAgain.collider == _isCellingStickable)
+            {
+                Debug.DrawRay(transform.position, Vector2.up, Color.red);
+                _rb2D.gravityScale = 0;
 
-            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
-            _rb2D.gravityScale = 0;
-        }
+            }
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
-            _rb2D.gravityScale = 1;
         }
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        if (Input.GetKey(KeyCode.DownArrow) && _isCellingStickable)
+        {
+            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 1;
         }
         if (!Mathf.Approximately(0, movement))
         {
@@ -633,8 +652,6 @@ public class AmibeCharacter : MonoBehaviour
         _rb2D.mass = _aviaMass;
         _rb2D.drag = _aviaLinearDrag;
         _jumpForce = _aviaJumpForce;
-        _characterPolyCollider2D = _aviaPolyCollider2D;
-        _sticking2DColliderBox = _aviaStickyCollider2D;
         _characterAnim = _aviaAnim;
         _mainCamera.orthographicSize = _aviaFOV;
         _characterState = Estate.Avia;
@@ -673,25 +690,34 @@ public class AmibeCharacter : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) && _isStickable == true || Input.GetKey(KeyCode.LeftArrow) && _isStickable == true)
         {
             _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
+            if (hit.collider == _isCellingStickable)
+            {
+                Debug.DrawRay(transform.position, Vector2.up, Color.red);
+                _rb2D.gravityScale = 0;
+
+            }
 
         }
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
-        if (hit.collider == _isCellingStickable)
+        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable)
         {
-            Debug.DrawRay(transform.position, Vector2.up, Color.red);           
-            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
-            
-            _rb2D.gravityScale = 0;
-        }
+            RaycastHit2D hitAgain = Physics2D.Raycast(transform.position, Vector2.up);
+            if (hitAgain.collider == _isCellingStickable)
+            {
+                Debug.DrawRay(transform.position, Vector2.up, Color.red);
+                _rb2D.gravityScale = 0;
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
-            _rb2D.gravityScale = 1;
+            }
+
         }
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
+        }
+        if (Input.GetKey(KeyCode.DownArrow) && _isCellingStickable)
+        {
+            _rb2D.MovePosition(_rb2D.position + _downVelocity * Time.fixedDeltaTime);
+            _rb2D.gravityScale = 1;
         }
         if (!Mathf.Approximately(0, movement))
         {
@@ -784,8 +810,6 @@ public class AmibeCharacter : MonoBehaviour
         _rb2D.mass = _chimeraMass;
         _rb2D.drag = _chimeraLinearDrag;
         _jumpForce = _chimeraJumpForce;
-        _characterPolyCollider2D = _chimeraPolyCollider2D;
-        _sticking2DColliderBox = _chimeraStickyCollider2D;
         _characterAnim = _chimeraAnim;
         _mainCamera.orthographicSize = _chimeraFOV;
         _characterState = Estate.Chimera;
