@@ -435,6 +435,11 @@ public class AmibeCharacter : MonoBehaviour
         {
             _rb2D.gravityScale = 0;
         }
+        if (Input.GetKey(KeyCode.D))
+        {
+            _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
+
+        }
         else
         {
             transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * _movementSpeed;
@@ -486,17 +491,19 @@ public class AmibeCharacter : MonoBehaviour
             if (hit.collider == _isCellingStickable)
             {
                 Debug.DrawRay(transform.position, Vector2.up, Color.red);
+                _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
                 _rb2D.gravityScale = 0;
 
             }
 
         }
-        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable)
+        else if (Input.GetKey(KeyCode.RightArrow) || _isCellingStickable)
         {
             RaycastHit2D hitAgain = Physics2D.Raycast(transform.position, Vector2.up);
             if (hitAgain.collider == _isCellingStickable)
             {
                 Debug.DrawRay(transform.position, Vector2.up, Color.red);
+                _rb2D.MovePosition(_rb2D.position + _upVelocity * Time.fixedDeltaTime);
                 _rb2D.gravityScale = 0;
 
             }
