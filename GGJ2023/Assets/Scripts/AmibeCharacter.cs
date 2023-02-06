@@ -432,10 +432,6 @@ public class AmibeCharacter : MonoBehaviour
             _rb2D.MovePosition(_rb2D.position + _climbVelocity * Time.fixedDeltaTime);
 
         }
-        else if (Input.GetKey(KeyCode.UpArrow) && _isCellingStickable == true)
-        {
-            _rb2D.gravityScale = 0;
-        }
         if (Input.GetKey(KeyCode.D))
         {
             _rb2D.MovePosition(_rb2D.position + _stickyCellingVelocity * Time.fixedDeltaTime);
@@ -498,7 +494,7 @@ public class AmibeCharacter : MonoBehaviour
             }
 
         }
-        else if (Input.GetKey(KeyCode.RightArrow) || _isCellingStickable)
+        else if (Input.GetKey(KeyCode.RightArrow) && _isCellingStickable)
         {
             RaycastHit2D hitAgain = Physics2D.Raycast(transform.position, Vector2.up);
             if (hitAgain.collider == _isCellingStickable)
