@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1504105879}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6339128028060565858}
   m_RootOrder: 5
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 67a6a5ddf01d94442a1576280b9f9231, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5087164796837855754}
   - component: {fileID: 5087164796837855753}
   - component: {fileID: 5087164796837855752}
-  - component: {fileID: 4166103110209432519}
+  - component: {fileID: 227462160}
   m_Layer: 0
   m_Name: Amibe
   m_TagString: Player
@@ -204,7 +204,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.19, y: 0.34}
+  m_Offset: {x: 0.19, y: 0.43}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -215,10 +215,10 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.54, y: 0.46}
+  m_Size: {x: 0.66, y: 0.64}
   m_EdgeRadius: 0
---- !u!61 &4166103110209432519
-BoxCollider2D:
+--- !u!58 &227462160
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -230,19 +230,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.6, y: 0.5}
-    newSize: {x: 0.6, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0.3}
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.5}
-  m_EdgeRadius: 0
+  m_Radius: 0.31
 --- !u!1 &5087164796964445731
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +245,7 @@ GameObject:
   - component: {fileID: 5087164796964445758}
   - component: {fileID: 5087164796964445729}
   - component: {fileID: 5087164796964445756}
-  - component: {fileID: 6595716871360939559}
+  - component: {fileID: 1993132014}
   m_Layer: 0
   m_Name: Chimera
   m_TagString: Player
@@ -363,7 +353,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.53, y: 1.05}
+  m_Offset: {x: 0.37, y: 1.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -374,10 +364,10 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.32, y: 1.78}
+  m_Size: {x: 1.71, y: 1.93}
   m_EdgeRadius: 0
---- !u!61 &6595716871360939559
-BoxCollider2D:
+--- !u!70 &1993132014
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -389,19 +379,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.89}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.67, y: 1.78}
-    newSize: {x: 0.6, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.67, y: 1.78}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0.9}
+  m_Size: {x: 1.67, y: 1.9}
+  m_Direction: 0
 --- !u!1 &5087164797491757641
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +395,7 @@ GameObject:
   - component: {fileID: 5087164797491757639}
   - component: {fileID: 5087164797491757635}
   - component: {fileID: 8164436410589397180}
+  - component: {fileID: 1049008621}
   m_Layer: 0
   m_Name: Avia
   m_TagString: Player
@@ -522,7 +503,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.36, y: 0.81}
+  m_Offset: {x: 0.3, y: 0.78}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -533,7 +514,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.14, y: 1.12}
+  m_Size: {x: 1.5, y: 1.12}
   m_EdgeRadius: 0
 --- !u!61 &8164436410589397180
 BoxCollider2D:
@@ -542,7 +523,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5087164797491757641}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -559,8 +540,24 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.58, y: 1.18}
+  m_Size: {x: 2.39, y: 1.18}
   m_EdgeRadius: 0
+--- !u!58 &1049008621
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087164797491757641}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.62}
+  serializedVersion: 2
+  m_Radius: 0.67
 --- !u!1 &5087164798639483094
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,7 +570,7 @@ GameObject:
   - component: {fileID: 5087164798639483089}
   - component: {fileID: 5087164798639483092}
   - component: {fileID: 5087164798639483055}
-  - component: {fileID: 7644298406465257226}
+  - component: {fileID: 128603265}
   m_Layer: 0
   m_Name: Batra
   m_TagString: Player
@@ -681,7 +678,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.18, y: 0.52}
+  m_Offset: {x: 0.19, y: 0.6}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -692,10 +689,10 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.97, y: 0.67}
+  m_Size: {x: 0.92, y: 0.94}
   m_EdgeRadius: 0
---- !u!61 &7644298406465257226
-BoxCollider2D:
+--- !u!58 &128603265
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -707,19 +704,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.345}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.9, y: 0.69}
-    newSize: {x: 0.6, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: -0.03, y: 0.43}
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.69}
-  m_EdgeRadius: 0
+  m_Radius: 0.45
 --- !u!1 &5455590169577250048
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,8 +893,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb2D: {fileID: 6339128028060565884}
-  _velocity: {x: 1.5, y: 0}
-  _upVelocity: {x: 1, y: 3}
+  _walkVelocity: 5
+  _climbVelocity: {x: 0, y: 5}
+  _stickyCellingVelocity: {x: 0.5, y: 4}
+  _detachCellingVelocity: {x: 0, y: -5}
   _isStickable: 0
   _isCellingStickable: 0
   _characterState: 0
@@ -921,8 +910,6 @@ MonoBehaviour:
   _scoreDNA: 0
   _requireDNA: 1
   _objInRange: {fileID: 0}
-  _sticking2DColliderBox: {fileID: 5087164796837855752}
-  _characterPolyCollider2D: {fileID: 0}
   groundCheck: {fileID: 0}
   groundLayer:
     serializedVersion: 2
@@ -930,48 +917,52 @@ MonoBehaviour:
   _spawnPoint: {fileID: 0}
   _pauseMenu: {fileID: 0}
   _rootPolyCollider2D: {fileID: 3878144674777115206}
-  _rootFOV: 2
+  _rootFOV: 4
   _amibeSprite: {fileID: 21300000, guid: 125b428acd71ee3418892bd09d8c8447, type: 3}
   _amibeAnim: {fileID: 5087164796837855754}
+  _amibeWalkVelocity: 5
   _amibeMass: 2
-  _amibeLinearDrag: 2
+  _amibeLinearDrag: 1
   _amibeFOV: 3.5
   _amibeStickyCollider2D: {fileID: 5087164796837855752}
-  _amibeCollider2D: {fileID: 5087164796837855752}
+  _amibePolyCollider2D: {fileID: 5087164796837855752}
   _batraSprite: {fileID: 21300000, guid: a3775f093feb2f645994d2026380f516, type: 3}
   _batraAnim: {fileID: 5087164798639483089}
-  _batraJumpForce: 65
-  _batraMass: 5
+  _batraWalkVelocity: 3
+  _batraJumpForce: 35
+  _batraMass: 3
   _batraLinearDrag: 1
   _batraFOV: 4
   _batraStickyCollider2D: {fileID: 5087164798639483055}
-  _batraCollider2D: {fileID: 5087164798639483055}
+  _batraPolyCollider2D: {fileID: 5087164798639483055}
   _aviaSprite: {fileID: 21300000, guid: 0a31739baf4dd6548838feda1c9f8163, type: 3}
   _aviaAnim: {fileID: 5087164797491757636}
-  _aviaJumpForce: 60
-  _aviaMass: 5
+  _aviaWalkVelocity: 5
+  _aviaJumpForce: 40
+  _aviaMass: 4
   _aviaLinearDrag: 0.5
   _aviaHoverLinearDrag: 12
   _aviaFOV: 5
   _aviaStickyCollider2D: {fileID: 5087164797491757635}
-  _aviaCollider2D: {fileID: 5087164797491757635}
+  _aviaPolyCollider2D: {fileID: 5087164797491757635}
   _chimeraSprite: {fileID: 21300000, guid: dee3c20c7ab600244b6ea94e0e0390d6, type: 3}
   _chimeraAnim: {fileID: 5087164796964445758}
-  _chimeraJumpForce: 60
-  _chimeraMass: 5
+  _chimeraWalkVelocity: 5
+  _chimeraJumpForce: 120
+  _chimeraMass: 6
   _chimeraLinearDrag: 0.2
   _chimeraHoverLinearDrag: 10
   _chimeraFOV: 7
   _chimeraStickyCollider2D: {fileID: 5087164796964445756}
-  _chimeraCollider2D: {fileID: 5087164796964445756}
+  _chimeraPolyCollider2D: {fileID: 5087164796964445756}
   _cthulhuObject: {fileID: 1504105879}
   _cthulhuRenderer: {fileID: 1504105881}
   _posCthulhu: {fileID: 0}
   _cthulhuFly: {fileID: 21300000, guid: 1bde2be8f1b434c4e97be7b57c7575ed, type: 3}
   _isCthulhu: 0
-  _delay: 0
-  _endDelay: 13
-  _timeStamp: 5
+  _delay: 2
+  _endDelay: 12
+  _timeStamp: 0
   _rootObject: {fileID: 5455590169577250048}
   _amibeObject: {fileID: 5087164796837855756}
   _batraObject: {fileID: 5087164798639483094}
